@@ -8,7 +8,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
     <!-- end:: breadcrumb -->
 
     <div class="lg:flex justify-between items-center mb-6">
-        <p class="text-2xl font-semibold mb-2 lg:mb-0">Good afternoon, Joe!</p>
+        <p class="text-2xl font-semibold mb-2 lg:mb-0">Hello, Admin</p>
         <button
             class="bg-blue-500 hover:bg-blue-600 focus:outline-none rounded-lg px-6 py-2 text-white font-semibold shadow">View
             Logs</button>
@@ -16,7 +16,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
 
     <div class="flex flex-wrap -mx-3 mb-20">
 
-        <div class="w-1/2 xl:w-1/4 px-3">
+        <div class="w-1/2 xl:w-1/4 px-3">~
             <div class="w-full bg-white border text-blue-400 rounded-lg flex items-center p-6 mb-6 xl:mb-0">
                 <svg class="w-16 h-16 fill-current mr-4 hidden lg:block" viewBox="0 0 20 20">
                     <path
