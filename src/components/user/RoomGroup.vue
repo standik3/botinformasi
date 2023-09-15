@@ -26,7 +26,6 @@ import Loading from "./../Loading.vue";
     </div>
 </template>
 
-
 <script>
 import { db } from "../../firebase";
 import http from '../../axios';

@@ -8,7 +8,9 @@ import ChatView from '../views/user/Chat.vue'
 import ChatCreateView from '../views/user/ChatCreate.vue'
 import GroupView from '../views/user/Group.vue'
 import GroupCreateView from '../views/user/GroupCreate.vue'
+import GroupSearchView from '../views/user/GroupSearch.vue'
 import GroupMemberView from '../views/user/GroupMember.vue'
+import GroupMemberAddView from '../views/user/GroupMemberAdd.vue'
 import BotView from '../views/user/Bot.vue'
 import ProfilView from '../views/user/Profil.vue'
 import HomeUserView from '../views/user/Home.vue'
@@ -89,9 +91,20 @@ const router = createRouter({
                     component: GroupCreateView,
                 },
                 {
+                    path: 'group/search',
+                    name: 'user-group-search',
+                    component: GroupSearchView,
+                },
+                {
                     path: 'group/member/:id',
                     name: 'user-group-member',
                     component: GroupMemberView,
+                    props: true,
+                },
+                {
+                    path: 'group/add/:id',
+                    name: 'user-group-add',
+                    component: GroupMemberAddView,
                     props: true,
                 },
                 {

@@ -5,7 +5,6 @@
         <img class="object-cover w-50 h-50 rounded-full" :src="photoURL" :alt="nama" />
         <p class="text-gray-500">{{ nama }}</p>
         <p class="text-gray-500">{{ email }}</p>
-        <p class="text-gray-500">{{ uid }}</p>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5" @click="handleLogout">Logout</button>
     </div>
 </template>

@@ -1,11 +1,11 @@
 <!-- untuk tampilan buat group -->
 <script setup>
-import NavbarGroup from '../../components/user/NavbarGroup.vue';
+import NavbarMessage from '../../components/user/NavbarMessage.vue';
 </script>
 
 <template>
     <!-- begin:: navbar -->
-    <NavbarGroup :id="id" :uid="uid" />
+    <NavbarMessage :id="id" />
     <!-- end:: navbar -->
 
     <!-- begin:: chat template -->
@@ -26,8 +26,8 @@ import NavbarGroup from '../../components/user/NavbarGroup.vue';
 <script>
 import { db } from "../../firebase";
 import {
-    collection,
     serverTimestamp,
+    collection,
     addDoc,
 } from "firebase/firestore";
 import Swal from 'sweetalert2'
@@ -80,7 +80,7 @@ export default {
                     }).then((confirm) => {
                         if (confirm.isConfirmed) {
                             console.log('Group berhasil ditambahkan => ' + res.id);
-                            this.$router.push({ name: 'user-group-member', params: { id: res.id } });
+                            this.$router.push({ name: 'user-group-add', params: { id: res.id } });
                         }
                     });
                 });

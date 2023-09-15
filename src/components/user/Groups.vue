@@ -9,13 +9,16 @@ import Loading from "./../Loading.vue";
     <div class="px-4 flex flex-col flex-grow h-0 overflow-auto">
         <div v-if="groups.length !== 0">
             <ul class="space-y-4">
-                <li :class="row.seen ? 'bg-white rounded-lg shadow-md p-4' : 'bg-blue-100 rounded-lg shadow-md p-4'" v-for="row in groups" :key="row.id" @click="openGroup(row.id)">
-                    <div class="flex items-center mb-2">
-                        <h2 class="font-bold text-lg">{{ row.name }}</h2>
+                <li :class="row.seen ? 'bg-white rounded-lg shadow-md p-4' : 'bg-blue-100 rounded-lg shadow-md p-4'" v-for="row in groups" :key="row.id">
+                    <div class="flex justify-between mb-2">
+                        <div class="flex items-center">
+                            <h2 class="font-bold text-lg">{{ row.name }}</h2>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="openGroup(row.id)">Chat</button>
+                            <button class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="viewGroup(row.id)">View</button>
+                        </div>
                     </div>
-                    <p class="text-gray-600">
-                        {{ row.latest_message }}
-                    </p>
                 </li>
             </ul>
         </div>
@@ -26,8 +29,11 @@ import Loading from "./../Loading.vue";
         </div>
     </div>
     <div class="relative">
-        <router-link to="/user/group/create" class="absolute bottom-2 right-4 bg-gray-600 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-xl hover:bg-gray-700 hover:drop-shadow-2xl">
+        <router-link to="/user/group/create" class="absolute bottom-1 right-4 bg-gray-600 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-xl hover:bg-gray-700 hover:drop-shadow-2xl">
             <font-awesome-icon icon="fa-solid fa-plus" />
+        </router-link>
+        <router-link to="/user/group/search" class="absolute bottom-12 right-4 bg-gray-600 w-10 h-10 rounded-full drop-shadow-lg flex justify-center items-center text-white text-xl hover:bg-gray-700 hover:drop-shadow-2xl">
+            <font-awesome-icon icon="fa-solid fa-search" />
         </router-link>
     </div>
 </template>
@@ -60,6 +66,9 @@ export default {
     methods: {
         openGroup(id) {
             this.$router.push({ name: 'user-group', params: { id: id } });
+        },
+        viewGroup(id) {
+            this.$router.push({ name: 'user-group-member', params: { id: id } });
         },
         async loadGroup() {
             try {

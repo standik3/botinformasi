@@ -10,17 +10,20 @@ import Loading from "./../Loading.vue";
         <div v-if="chats.length !== 0">
             <ul class="space-y-4">
                 <li :class="row.seen ? 'bg-white rounded-lg shadow-md p-4' : 'bg-blue-100 rounded-lg shadow-md p-4'"
-                    v-for="row in chats" :key="row.id" @click="openChat(row.id)">
-                    <div class="flex items-center mb-2">
-                        <img class="h-10 w-10 rounded-full object-cover mr-2" :src="row.photo" :alt="row.name">
-                        <div>
-                            <h2 class="font-bold text-lg">{{ row.name }}</h2>
-                            <p class="text-gray-500">{{ row.email }}</p>
+                    v-for="row in chats" :key="row.id">
+                    <div class="flex justify-between mb-2">
+                        <div class="flex items-center">
+                            <img class="h-10 w-10 rounded-full object-cover mr-2" :src="row.photo" :alt="row.name">
+                            <div>
+                                <h2 class="font-bold text-lg">{{ row.name }}</h2>
+                                <p class="text-gray-500">{{ row.email }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <button class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="openChat(row.id)">Chat</button>
+                            <button v-if="row.status" class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="reportFriend(row.uid)">Report</button>
                         </div>
                     </div>
-                    <p class="text-gray-600">
-                        {{ row.latest_message }}
-                    </p>
                 </li>
             </ul>
         </div>
@@ -46,9 +49,12 @@ import {
     getDocs,
     onSnapshot,
     orderBy,
-    or
+    or,
+    serverTimestamp,
+    addDoc
 } from "firebase/firestore";
 import { onUnmounted, ref } from 'vue';
+import Swal from 'sweetalert2';
 
 export default {
     name: 'Chats',
@@ -88,31 +94,63 @@ export default {
 
                 const unsubscribe = onSnapshot(qryFriends, (snapshotFrineds) => {                   
                     this.chats = [];
-                    snapshotFrineds.docs.map((docFriends) => {
-                        if (docFriends.data().latest_message !== '') {
-                            let user = null;
+                    snapshotFrineds.docs.map(async (docFriends) => {
+                        let user = null;
 
-                            if (docFriends.data().id_sender == this.uid) {
-                                user = this.users.find((row) => row.uid == docFriends.data().id_receiver);
-                            } else {
-                                user = this.users.find((row) => row.uid == docFriends.data().id_sender);
-                            }
+                        if (docFriends.data().id_sender == this.uid) {
+                            user = this.users.find((row) => row.uid == docFriends.data().id_receiver);
+                        } else {
+                            user = this.users.find((row) => row.uid == docFriends.data().id_sender);
+                        }
 
-                            this.chats.push({
-                                id: docFriends.id,
-                                seen: docFriends.data().seen,
-                                latest_message: docFriends.data().latest_message,
-                                name: user.name,
-                                email: user.email,
-                                photo: user.photo,
-                            });
-                        };
+                        // untuk ambil data report
+                        const tblReport = collection(db, "Reports");
+                        const qryReport = query(tblReport, where("uid_report", "==", this.uid));
+                        const resReport = await getDocs(qryReport);
+
+                        this.chats.push({
+                            id: docFriends.id,
+                            seen: docFriends.data().seen,
+                            latest_message: docFriends.data().latest_message,
+                            uid: user.uid,
+                            name: user.name,
+                            email: user.email,
+                            photo: user.photo,
+                            status: (resReport.empty ? true : false)
+                        });
                     });
                 });
 
                 this.loading = true;
 
                 onUnmounted(unsubscribe);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async reportFriend(uid) {
+            try {
+                const tblReport = collection(db, 'Reports');
+
+                const data = {
+                    uid_report: this.uid,
+                    uid: uid,
+                    created_at: serverTimestamp(),
+                }
+
+                addDoc(tblReport, data).then((res) => {
+                    Swal.fire({
+                        title: 'Berhasil!',
+                        text: 'Member berhasil direport',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    }).then((confirm) => {
+                        if (confirm.isConfirmed) {
+                            console.log('Group Member berhasil ditambahkan => ' + res.id);
+                            this.loadChat();
+                        }
+                    });
+                });
             } catch (error) {
                 console.log(error);
             }

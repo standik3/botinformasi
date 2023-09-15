@@ -1,8 +1,11 @@
 <template>
     <div class="relative flex justify-between p-3 border-b border-gray-300">
-        <router-link to="/user/home" class="items-center p-2">
-            <font-awesome-icon icon="fa-solid fa-arrow-left" />
-        </router-link>
+        <div class="flex items-center">
+            <router-link to="/user/home" class="items-center p-2">
+                <font-awesome-icon icon="fa-solid fa-arrow-left" />
+            </router-link>
+            <h1 class="font-bold">{{ this.name }}</h1>
+        </div>
         <div class="relative" v-if="this.id !== ''">
             <button @click="show = !show" class="items-center p-2">
                 <font-awesome-icon icon="fa-solid fa-bars" />
@@ -24,7 +27,8 @@ import {
     query,
     collection,
     where,
-    onSnapshot
+    onSnapshot,
+    getDocs
 } from "firebase/firestore";
 
 export default {
@@ -42,11 +46,26 @@ export default {
     data() {
         return {
             show: false,
+            name: null
         }
     },
     methods: {
+        async loadGroup() {
+            const qryGroups = query(collection(db, 'Groups'));
+            const getGroups = await getDocs(qryGroups);
+            const resGroups = getGroups.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            let res = resGroups.filter((row) => {
+                return row.id === this.id;
+            });
+
+            this.name = res[0].name;
+        },
         addMember(id) {
-            this.$router.push({ name: 'group-member', params: { id: id } });
+            this.$router.push({ name: 'user-group-add', params: { id: id } });
         },
         leaveGroup(id, uid) {
             const qryGroupMember = query(collection(db, "Groups/" + id + "/Members"), where("uid", "==", uid));
@@ -63,7 +82,7 @@ export default {
         },
     },
     mounted() {
-
+        this.loadGroup();
     }
 }
 </script>

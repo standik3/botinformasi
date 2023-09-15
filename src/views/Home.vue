@@ -2,8 +2,8 @@
     <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800">
         <div class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
-            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Welcome to 21711574 Project</h1>
-            <p class="text-gray-500">Tugas Akhir</p>
+            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Welcome to My Social Media</h1>
+            <p class="text-gray-500">This is a My Social Media Network</p>
             <p class="text-gray-500">Login to continue</p>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5" @click="handleLogin">Login</button>
             <!-- end:: body -->
@@ -19,15 +19,16 @@ import {
 } from "firebase/auth";
 import {
     collection,
+    getDocs,
     addDoc,
     query,
     where,
-    getDocs
 } from "firebase/firestore";
 import {
     getToken,
     onMessage
 } from "firebase/messaging";
+import Swal from 'sweetalert2';
 
 const provider = new GoogleAuthProvider();
 
@@ -81,6 +82,7 @@ export default {
                     email: this.email,
                     photo: this.photoURL,
                     role: 'user',
+                    active: 'y',
                     token_notification: this.tokenNotification,
                 }
 
@@ -106,9 +108,11 @@ export default {
                 } else {
                     console.log('Collection does exist');
 
-                    const qryUsers = query(collection(db, "Users"), where("uid", "==", this.uid));
-                    const get = await getDocs(qryUsers);
-                    if (get.size == 0) {
+                    const tblUsers = collection(db, "Users");
+                    const qryUsers = query(tblUsers, where("uid", "==", this.uid));
+                    const getUsers = await getDocs(qryUsers);
+
+                    if (getUsers.size == 0) {
                         // untuk simpan data ke firebase
                         const docRef = await addDoc(collection(db, "Users"), data);
                         if (docRef) {
@@ -123,12 +127,25 @@ export default {
                             console.log('Create data users gagal ' + docRef.id);
                         }
                     } else {
-                        // untuk set local storage
-                        localStorage.setItem('authenticated', true);
-                        localStorage.setItem('user', JSON.stringify(data));
-                        this.$router.push({
-                            name: 'user'
-                        });
+                        // untuk cek active
+                        const qryUserCheck = query(tblUsers, where("uid", "==", this.uid), where("active", "==", 'y'));
+                        const getUserCheck = await getDocs(qryUserCheck);
+
+                        if (getUserCheck.size == 0) {
+                            Swal.fire({
+                                title: 'Gagal!',
+                                text: 'Maaf, akun Anda telah diblock!',
+                                icon: 'error',
+                                confirmButtonText: 'Okay'
+                            });
+                        } else {
+                            // untuk set local storage
+                            localStorage.setItem('authenticated', true);
+                            localStorage.setItem('user', JSON.stringify(data));
+                            this.$router.push({
+                                name: 'user'
+                            });
+                        }
                     }
                 }
             }).catch((error) => {

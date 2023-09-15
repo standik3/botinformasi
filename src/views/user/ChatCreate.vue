@@ -42,8 +42,7 @@ import Loading from '../../components/Loading.vue';
                                 <p class="text-gray-500">{{ row.email }}</p>
                             </div>
                         </div>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg"
-                            @click="sendMessage(uid, row.uid)">Send</button>
+                        <button v-if="row.status" class="bg-blue-500 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="addFriend(uid, row.uid)">Add</button>
                     </div>
                 </li>
             </ul>
@@ -56,14 +55,14 @@ import Loading from '../../components/Loading.vue';
 <script>
 import { db } from "../../firebase";
 import {
-    collection,
-    query,
-    getDocs,
-    where,
-    or,
     serverTimestamp,
+    collection,
+    getDocs,
     addDoc,
-    and
+    query,
+    where,
+    and,
+    or,
 } from "firebase/firestore";
 
 export default {
@@ -90,7 +89,7 @@ export default {
             this.email = user.email;
             this.photoURL = user.photo;
         },
-        async sendMessage(idSender, idReceiver) {
+        async addFriend(idSender, idReceiver) {
             const tblFriends = collection(db, 'Friends');
             const qryFriends = query(
                 tblFriends,
@@ -120,7 +119,7 @@ export default {
                 }
 
                 addDoc(tblFriends, friendsAdd).then((res) => {
-                    this.$router.push({ name: 'user-chat', params: { id: res.id } });
+                    this.$router.push({ name: 'user-home' });
 
                     console.log('Friends berhasil ditambahkan => ' + res.id);
                 });
@@ -128,7 +127,7 @@ export default {
                 console.log('Collection does exist');
 
                 getFriends.forEach((doc) => {
-                    this.$router.push({ name: 'user-chat', params: { id: doc.id } });
+                    this.$router.push({ name: 'user-home' });
                 });
             }
         },
@@ -152,14 +151,31 @@ export default {
 
                 // untuk ambil data friends
                 this.users = [];
-                resUsers.forEach((user) => {
+                resUsers.forEach(async (user) => {
                     if (user.email.toLowerCase().includes(this.$refs.search.value.toLowerCase())) {
+                        const tblFriends = collection(db, 'Friends');
+                        const qryFriends = query(
+                            tblFriends,
+                            or(
+                                and(
+                                    where('id_sender', '==', user.uid),
+                                    where('id_receiver', '==', this.uid),
+                                ),
+                                and(
+                                    where('id_sender', '==', this.uid),
+                                    where('id_receiver', '==', user.uid),
+                                ),
+                            )
+                        );
+                        const getFriends = await getDocs(qryFriends);
+
                         this.users.push({
                             id: user.id,
                             uid: user.uid,
                             name: user.name,
                             email: user.email,
                             photo: user.photo,
+                            status: (getFriends.empty ? true : false)
                         });
                     }
                 });
