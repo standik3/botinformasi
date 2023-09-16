@@ -12,9 +12,9 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>User</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
                     <th>Name</th>
-                    <th>Email</th>
                     <th>Info</th>
                 </tr>
             </thead>
@@ -22,8 +22,8 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                 <tr v-for="row in bots" :key="row.id">
                     <td>{{ row.id }}</td>
                     <td>{{ row.user }}</td>
-                    <td>{{ row.name }}</td>
                     <td>{{ row.email }}</td>
+                    <td>{{ row.name }}</td>
                     <td>{{ row.info }}</td>
                 </tr>
             </tbody>
