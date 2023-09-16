@@ -4,8 +4,7 @@
             <!-- begin:: body -->
             <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Tugas Akhir</h1>
             <p class="text-gray-500">Andika Saputra 217116574</p>
-            <p class="text-gray-500">Google Sign in</p>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5" @click="handleLogin">Login</button>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5" @click="handleLogin">Google Sign-in</button>
             <!-- end:: body -->
         </div>
     </div>
