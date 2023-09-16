@@ -2,9 +2,9 @@
     <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800">
         <div class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
-            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Welcome to My Social Media</h1>
-            <p class="text-gray-500">This is a My Social Media Network</p>
-            <p class="text-gray-500">Login to continue</p>
+            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Welcome to My Tugas Akhir</h1>
+            <p class="text-gray-500">Tugas Akhir Andika Saputra 217116574</p>
+            <p class="text-gray-500">Google Sign in</p>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5" @click="handleLogin">Login</button>
             <!-- end:: body -->
         </div>
