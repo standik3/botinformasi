@@ -14,6 +14,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                     <th>Id</th>
                     <th>User</th>
                     <th>Name</th>
+                    <th>Email</th>
                     <th>Info</th>
                 </tr>
             </thead>
@@ -22,6 +23,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                     <td>{{ row.id }}</td>
                     <td>{{ row.user }}</td>
                     <td>{{ row.name }}</td>
+                    <td>{{ row.email }}</td>
                     <td>{{ row.info }}</td>
                 </tr>
             </tbody>
@@ -75,6 +77,7 @@ export default {
                             id: doc.id,
                             user: user.name,
                             name: doc.data().name,
+                            email: doc.data().email,
                             info: doc.data().info,
                         });
                     });
