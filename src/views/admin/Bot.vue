@@ -23,7 +23,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                     <td>{{ row.id }}</td>
                     <td>{{ row.user }}</td>
                     <td>{{ row.name }}</td>
-                    <td>{{ row.email }}</td>
+                    <td>{{ row.name }}</td>
                     <td>{{ row.info }}</td>
                 </tr>
             </tbody>
