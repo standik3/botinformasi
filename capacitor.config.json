@@ -1,6 +1,6 @@
 {
-  "appId": "com.example.app",
-  "appName": "my-project",
+  "appId": "botinformasi.netlify.app",
+  "appName": "TugasAkhir217116574",
   "webDir": "dist",
   "server": {
     "androidScheme": "https"
