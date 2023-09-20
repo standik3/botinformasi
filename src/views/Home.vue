@@ -13,7 +13,6 @@
 <script>
 import { db, auth, messaging } from "../firebase";
 import {
-    signInWithRedirect,
     signInWithPopup,
     GoogleAuthProvider
 } from "firebase/auth";
@@ -68,90 +67,89 @@ export default {
             });
         },
         handleLogin() {
-            signInWithRedirect(auth, provider);
-            // signInWithPopup(auth, provider).then(async (result) => {
-            //     // The signed-in user info.
-            //     this.uid = result.user.uid;
-            //     this.user = result.user.displayName;
-            //     this.email = result.user.email;
-            //     this.photoURL = result.user.photoURL;
-            //     this.isLogin = true
+            signInWithPopup(auth, provider).then(async (result) => {
+                // The signed-in user info.
+                this.uid = result.user.uid;
+                this.user = result.user.displayName;
+                this.email = result.user.email;
+                this.photoURL = result.user.photoURL;
+                this.isLogin = true
 
-            //     let data = {
-            //         uid: this.uid,
-            //         name: this.user,
-            //         email: this.email,
-            //         photo: this.photoURL,
-            //         role: 'user',
-            //         active: 'y',
-            //         token_notification: this.tokenNotification,
-            //     }
+                let data = {
+                    uid: this.uid,
+                    name: this.user,
+                    email: this.email,
+                    photo: this.photoURL,
+                    role: 'user',
+                    active: 'y',
+                    token_notification: this.tokenNotification,
+                }
 
-            //     // check data collection users
-            //     const tableUsers = collection(db, 'Users');
-            //     const usersSnapshot = await getDocs(tableUsers);
-            //     if (usersSnapshot.empty) {
-            //         console.log('Collection does not exist');
+                // check data collection users
+                const tableUsers = collection(db, 'Users');
+                const usersSnapshot = await getDocs(tableUsers);
+                if (usersSnapshot.empty) {
+                    console.log('Collection does not exist');
 
-            //         // untuk simpan data ke firebase
-            //         const docRef = await addDoc(collection(db, "Users"), data);
-            //         if (docRef) {
-            //             // untuk set local storage
-            //             localStorage.setItem('authenticated', true);
-            //             localStorage.setItem('user', JSON.stringify(data));
-            //             this.$router.push({
-            //                 name: 'user'
-            //             });
-            //             console.log('Create data users berhasil ' + docRef.id);
-            //         } else {
-            //             console.log('Create data users gagal ' + docRef.id);
-            //         }
-            //     } else {
-            //         console.log('Collection does exist');
+                    // untuk simpan data ke firebase
+                    const docRef = await addDoc(collection(db, "Users"), data);
+                    if (docRef) {
+                        // untuk set local storage
+                        localStorage.setItem('authenticated', true);
+                        localStorage.setItem('user', JSON.stringify(data));
+                        this.$router.push({
+                            name: 'user'
+                        });
+                        console.log('Create data users berhasil ' + docRef.id);
+                    } else {
+                        console.log('Create data users gagal ' + docRef.id);
+                    }
+                } else {
+                    console.log('Collection does exist');
 
-            //         const tblUsers = collection(db, "Users");
-            //         const qryUsers = query(tblUsers, where("uid", "==", this.uid));
-            //         const getUsers = await getDocs(qryUsers);
+                    const tblUsers = collection(db, "Users");
+                    const qryUsers = query(tblUsers, where("uid", "==", this.uid));
+                    const getUsers = await getDocs(qryUsers);
 
-            //         if (getUsers.size == 0) {
-            //             // untuk simpan data ke firebase
-            //             const docRef = await addDoc(collection(db, "Users"), data);
-            //             if (docRef) {
-            //                 // untuk set local storage
-            //                 localStorage.setItem('authenticated', true);
-            //                 localStorage.setItem('user', JSON.stringify(data));
-            //                 this.$router.push({
-            //                     name: 'user'
-            //                 });
-            //                 console.log('Create data users berhasil ' + docRef.id);
-            //             } else {
-            //                 console.log('Create data users gagal ' + docRef.id);
-            //             }
-            //         } else {
-            //             // untuk cek active
-            //             const qryUserCheck = query(tblUsers, where("uid", "==", this.uid), where("active", "==", 'y'));
-            //             const getUserCheck = await getDocs(qryUserCheck);
+                    if (getUsers.size == 0) {
+                        // untuk simpan data ke firebase
+                        const docRef = await addDoc(collection(db, "Users"), data);
+                        if (docRef) {
+                            // untuk set local storage
+                            localStorage.setItem('authenticated', true);
+                            localStorage.setItem('user', JSON.stringify(data));
+                            this.$router.push({
+                                name: 'user'
+                            });
+                            console.log('Create data users berhasil ' + docRef.id);
+                        } else {
+                            console.log('Create data users gagal ' + docRef.id);
+                        }
+                    } else {
+                        // untuk cek active
+                        const qryUserCheck = query(tblUsers, where("uid", "==", this.uid), where("active", "==", 'y'));
+                        const getUserCheck = await getDocs(qryUserCheck);
 
-            //             if (getUserCheck.size == 0) {
-            //                 Swal.fire({
-            //                     title: 'Gagal!',
-            //                     text: 'Maaf, akun Anda telah diblock!',
-            //                     icon: 'error',
-            //                     confirmButtonText: 'Okay'
-            //                 });
-            //             } else {
-            //                 // untuk set local storage
-            //                 localStorage.setItem('authenticated', true);
-            //                 localStorage.setItem('user', JSON.stringify(data));
-            //                 this.$router.push({
-            //                     name: 'user'
-            //                 });
-            //             }
-            //         }
-            //     }
-            // }).catch((error) => {
-            //     console.log(error);
-            // });
+                        if (getUserCheck.size == 0) {
+                            Swal.fire({
+                                title: 'Gagal!',
+                                text: 'Maaf, akun Anda telah diblock!',
+                                icon: 'error',
+                                confirmButtonText: 'Okay'
+                            });
+                        } else {
+                            // untuk set local storage
+                            localStorage.setItem('authenticated', true);
+                            localStorage.setItem('user', JSON.stringify(data));
+                            this.$router.push({
+                                name: 'user'
+                            });
+                        }
+                    }
+                }
+            }).catch((error) => {
+                console.log(error);
+            });
         },
     },
     mounted() {
