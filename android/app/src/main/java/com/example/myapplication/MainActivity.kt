@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.webkit.CookieManager
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +16,10 @@ class MainActivity : AppCompatActivity() {
         settings.domStorageEnabled = true
         settings.allowFileAccess = true
         settings.databaseEnabled = true
-        vueApp.settings.javaScriptEnabled = true
+        settings.javaScriptEnabled = true
+        settings.userAgentString = "Mozilla/5.0 (Linux; Android 10; Pixel 4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.91 Mobile Safari/537.36"
+        CookieManager.getInstance().setAcceptThirdPartyCookies(vueApp, true)
+
 //        vueApp.loadUrl("https://detik.com/")
         vueApp.loadUrl("https://botinformasi.netlify.app/")
     }
