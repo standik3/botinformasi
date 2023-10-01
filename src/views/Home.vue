@@ -3,9 +3,9 @@
         <div
             class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
-            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Welcome to My Social Media</h1>
-            <p class="text-gray-500">This is a My Social Media Network</p>
-            <p class="text-gray-500">Login to continue</p>
+            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">TUGAS AKHIR</h1>
+            <p class="text-gray-500">Aplikasi Chat dilengkapi Bot Informasi Akademik berbasis Rule pada Android menggunakan Vue.js dan Firebase</p>
+            <p class="text-gray-500">Andika Saputra - 217116574</p>
 
             <div class="relative flex justify-between">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-1 py-2 px-4 rounded-full mt-5"
