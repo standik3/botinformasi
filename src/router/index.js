@@ -13,6 +13,7 @@ import GroupMemberView from '../views/user/GroupMember.vue'
 import GroupMemberAddView from '../views/user/GroupMemberAdd.vue'
 import BotView from '../views/user/Bot.vue'
 import ProfilView from '../views/user/Profil.vue'
+import ProfilUpdView from '../views/user/ProfilUpd.vue'
 import HomeUserView from '../views/user/Home.vue'
 import BaseUserLayout from '../layouts/BaseUser.vue'
 // end:: user
@@ -23,10 +24,13 @@ import UserAdminView from '../views/admin/User.vue'
 import ChatAdminView from '../views/admin/Chat.vue'
 import GroupAdminView from '../views/admin/Group.vue'
 import BotAdminView from '../views/admin/Bot.vue'
+import BotDetailAdminView from '../views/admin/BotDetail.vue'
 import BaseAdminLayout from '../layouts/BaseAdmin.vue'
 // end:: admin
 
 import HomeView from '../views/Home.vue'
+import AuthLoginView from '../views/auth/Login.vue'
+import AuthRegisterView from '../views/auth/Register.vue'
 import LoginView from '../views/Login.vue'
 import RegisterView from '../views/Register.vue'
 
@@ -48,6 +52,16 @@ const router = createRouter({
             name: 'register',
             component: RegisterView,
         },
+        {
+            path: '/auth/login',
+            name: 'auth-login',
+            component: AuthLoginView,
+        },
+        {
+            path: '/auth/register',
+            name: 'auth-register',
+            component: AuthRegisterView,
+        },
 
         // begin:: user
         {
@@ -67,6 +81,11 @@ const router = createRouter({
                     path: 'profil',
                     name: 'user-profil',
                     component: ProfilView,
+                },
+                {
+                    path: 'profil/edit',
+                    name: 'user-profil-edit',
+                    component: ProfilUpdView,
                 },
                 {
                     path: 'chat/:id',
@@ -150,6 +169,12 @@ const router = createRouter({
                     path: 'bot',
                     name: 'admin-bot',
                     component: BotAdminView,
+                },
+                {
+                    path: 'bot/detail/:id',
+                    name: 'admin-bot-detail',
+                    component: BotDetailAdminView,
+                    props: true,
                 },
             ]
         },

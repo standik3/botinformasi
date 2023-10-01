@@ -1,10 +1,18 @@
 <template>
     <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-100 text-gray-800">
-        <div class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
+        <div
+            class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
-            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Tugas Akhir</h1>
-            <p class="text-gray-500">Andika Saputra 217116574</p>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mt-5" @click="handleLogin">Google Sign-in</button>
+            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Welcome to My Social Media</h1>
+            <p class="text-gray-500">This is a My Social Media Network</p>
+            <p class="text-gray-500">Login to continue</p>
+
+            <div class="relative flex justify-between">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-1 py-2 px-4 rounded-full mt-5"
+                    @click="loginGoogle">Login with Google</button>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-1 py-2 px-4 rounded-full mt-5"
+                    @click="loginEmail">Login with Email</button>
+            </div>
             <!-- end:: body -->
         </div>
     </div>
@@ -13,8 +21,6 @@
 <script>
 import { db, auth, messaging } from "../firebase";
 import {
-    signInWithRedirect,
-    getRedirectResult,
     signInWithPopup,
     GoogleAuthProvider
 } from "firebase/auth";
@@ -24,6 +30,7 @@ import {
     addDoc,
     query,
     where,
+    onSnapshot,
 } from "firebase/firestore";
 import {
     getToken,
@@ -68,104 +75,12 @@ export default {
                 }
             });
         },
-        handleLogin() {
-            // signInWithRedirect(auth, provider);
-            // getRedirectResult(auth)
-            // .then(async (result) => {
-            //     // This gives you a Google Access Token. You can use it to access Google APIs.
-            //     const credential = GoogleAuthProvider.credentialFromResult(result);
-            //     const token = credential.accessToken;
-
-            //     // The signed-in user info.
-            //     this.uid = result.user.uid;
-            //     this.user = result.user.displayName;
-            //     this.email = result.user.email;
-            //     this.photoURL = result.user.photoURL;
-            //     this.isLogin = true
-
-            //     let data = {
-            //         uid: this.uid,
-            //         name: this.user,
-            //         email: this.email,
-            //         photo: this.photoURL,
-            //         role: 'user',
-            //         active: 'y',
-            //         token_notification: this.tokenNotification,
-            //     }
-
-            //     // check data collection users
-            //     const tableUsers = collection(db, 'Users');
-            //     const usersSnapshot = await getDocs(tableUsers);
-            //     if (usersSnapshot.empty) {
-            //         console.log('Collection does not exist');
-
-            //         // untuk simpan data ke firebase
-            //         const docRef = await addDoc(collection(db, "Users"), data);
-            //         if (docRef) {
-            //             // untuk set local storage
-            //             localStorage.setItem('authenticated', true);
-            //             localStorage.setItem('user', JSON.stringify(data));
-            //             this.$router.push({
-            //                 name: 'user'
-            //             });
-            //             console.log('Create data users berhasil ' + docRef.id);
-            //         } else {
-            //             console.log('Create data users gagal ' + docRef.id);
-            //         }
-            //     } else {
-            //         console.log('Collection does exist');
-
-            //         const tblUsers = collection(db, "Users");
-            //         const qryUsers = query(tblUsers, where("uid", "==", this.uid));
-            //         const getUsers = await getDocs(qryUsers);
-
-            //         if (getUsers.size == 0) {
-            //             // untuk simpan data ke firebase
-            //             const docRef = await addDoc(collection(db, "Users"), data);
-            //             if (docRef) {
-            //                 // untuk set local storage
-            //                 localStorage.setItem('authenticated', true);
-            //                 localStorage.setItem('user', JSON.stringify(data));
-            //                 this.$router.push({
-            //                     name: 'user'
-            //                 });
-            //                 console.log('Create data users berhasil ' + docRef.id);
-            //             } else {
-            //                 console.log('Create data users gagal ' + docRef.id);
-            //             }
-            //         } else {
-            //             // untuk cek active
-            //             const qryUserCheck = query(tblUsers, where("uid", "==", this.uid), where("active", "==", 'y'));
-            //             const getUserCheck = await getDocs(qryUserCheck);
-
-            //             if (getUserCheck.size == 0) {
-            //                 Swal.fire({
-            //                     title: 'Gagal!',
-            //                     text: 'Maaf, akun Anda telah diblock!',
-            //                     icon: 'error',
-            //                     confirmButtonText: 'Okay'
-            //                 });
-            //             } else {
-            //                 // untuk set local storage
-            //                 localStorage.setItem('authenticated', true);
-            //                 localStorage.setItem('user', JSON.stringify(data));
-            //                 this.$router.push({
-            //                     name: 'user'
-            //                 });
-            //             }
-            //         }
-            //     }
-            // }).catch((error) => {
-            //     // Handle Errors here.
-            //     const errorCode = error.code;
-            //     const errorMessage = error.message;
-            //     // The email of the user's account used.
-            //     const email = error.customData.email;
-            //     // The AuthCredential type that was used.
-            //     const credential = GoogleAuthProvider.credentialFromError(error);
-            //     // ...
-            // });
-
+        loginEmail() {
+            this.$router.push({
+                name: 'auth-login'
+            });
+        },
+        loginGoogle() {
             signInWithPopup(auth, provider).then(async (result) => {
                 // The signed-in user info.
                 this.uid = result.user.uid;
@@ -174,21 +89,22 @@ export default {
                 this.photoURL = result.user.photoURL;
                 this.isLogin = true
 
-                let data = {
-                    uid: this.uid,
-                    name: this.user,
-                    email: this.email,
-                    photo: this.photoURL,
-                    role: 'user',
-                    active: 'y',
-                    token_notification: this.tokenNotification,
-                }
-
                 // check data collection users
                 const tableUsers = collection(db, 'Users');
                 const usersSnapshot = await getDocs(tableUsers);
                 if (usersSnapshot.empty) {
                     console.log('Collection does not exist');
+
+                    let data = {
+                        uid: this.uid,
+                        name: this.user,
+                        email: this.email,
+                        photo: this.photoURL,
+                        bio: '',
+                        role: 'user',
+                        active: 'y',
+                        token_notification: this.tokenNotification,
+                    }
 
                     // untuk simpan data ke firebase
                     const docRef = await addDoc(collection(db, "Users"), data);
@@ -210,41 +126,56 @@ export default {
                     const qryUsers = query(tblUsers, where("uid", "==", this.uid));
                     const getUsers = await getDocs(qryUsers);
 
-                    if (getUsers.size == 0) {
-                        // untuk simpan data ke firebase
-                        const docRef = await addDoc(collection(db, "Users"), data);
-                        if (docRef) {
-                            // untuk set local storage
-                            localStorage.setItem('authenticated', true);
-                            localStorage.setItem('user', JSON.stringify(data));
-                            this.$router.push({
-                                name: 'user'
-                            });
-                            console.log('Create data users berhasil ' + docRef.id);
-                        } else {
-                            console.log('Create data users gagal ' + docRef.id);
-                        }
-                    } else {
-                        // untuk cek active
-                        const qryUserCheck = query(tblUsers, where("uid", "==", this.uid), where("active", "==", 'y'));
-                        const getUserCheck = await getDocs(qryUserCheck);
+                    onSnapshot(qryUsers, (snapshotUsers) => {
+                        snapshotUsers.docs.map(async (docUsers) => {
+                            let data = {
+                                uid: this.uid,
+                                name: this.user,
+                                email: this.email,
+                                photo: this.photoURL,
+                                bio: docUsers.data().bio,
+                                role: 'user',
+                                active: 'y',
+                                token_notification: this.tokenNotification,
+                            }
 
-                        if (getUserCheck.size == 0) {
-                            Swal.fire({
-                                title: 'Gagal!',
-                                text: 'Maaf, akun Anda telah diblock!',
-                                icon: 'error',
-                                confirmButtonText: 'Okay'
-                            });
-                        } else {
-                            // untuk set local storage
-                            localStorage.setItem('authenticated', true);
-                            localStorage.setItem('user', JSON.stringify(data));
-                            this.$router.push({
-                                name: 'user'
-                            });
-                        }
-                    }
+                            if (getUsers.size == 0) {
+                                // untuk simpan data ke firebase
+                                const docRef = await addDoc(collection(db, "Users"), data);
+                                if (docRef) {
+                                    // untuk set local storage
+                                    localStorage.setItem('authenticated', true);
+                                    localStorage.setItem('user', JSON.stringify(data));
+                                    this.$router.push({
+                                        name: 'user'
+                                    });
+                                    console.log('Create data users berhasil ' + docRef.id);
+                                } else {
+                                    console.log('Create data users gagal ' + docRef.id);
+                                }
+                            } else {
+                                // untuk cek active
+                                const qryUserCheck = query(tblUsers, where("uid", "==", this.uid), where("active", "==", 'y'));
+                                const getUserCheck = await getDocs(qryUserCheck);
+
+                                if (getUserCheck.size == 0) {
+                                    Swal.fire({
+                                        title: 'Gagal!',
+                                        text: 'Maaf, akun Anda telah diblock!',
+                                        icon: 'error',
+                                        confirmButtonText: 'Okay'
+                                    });
+                                } else {
+                                    // untuk set local storage
+                                    localStorage.setItem('authenticated', true);
+                                    localStorage.setItem('user', JSON.stringify(data));
+                                    this.$router.push({
+                                        name: 'user'
+                                    });
+                                }
+                            }
+                        });
+                    });
                 }
             }).catch((error) => {
                 console.log(error);
