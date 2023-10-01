@@ -4,7 +4,9 @@
             class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
             <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">TUGAS AKHIR</h1><br>
-            <p class="text-gray-500">Aplikasi Chat dilengkapi Bot Informasi Akademik<br>berbasis Rule pada Android<br> menggunakan<br>Vue.js dan Firebase</p>
+            <p class="text-gray-500">Aplikasi Chat dilengkapi Bot Informasi Akademik</p>
+            <p class="text-gray-500">berbasis Rule pada Android menggunakan</p>
+            <p class="text-gray-500">Vue.js dan Firebase</p>
             <p class="text-gray-500">Andika Saputra - 217116574</p>
 
             <div class="relative flex justify-between">
