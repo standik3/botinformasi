@@ -3,7 +3,8 @@
         <div
             class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
-            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">TUGAS AKHIR Aplikasi<br>Chat dilengkapi Bot Informasi Akademik berbasis Rule pada Android menggunakan Vue.js dan Firebase</br></h1>
+            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">TUGAS AKHIR Aplikasi</h1><br>
+            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Chat dilengkapi Bot Informasi Akademik berbasis Rule pada Android menggunakan Vue.js dan Firebase</h1>
             <p class="text-gray-500">Andika Saputra - 217116574</p>
 
             <div class="relative flex justify-between">
