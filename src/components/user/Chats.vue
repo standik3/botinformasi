@@ -17,12 +17,13 @@ import Loading from "./../Loading.vue";
                             <div>
                                 <h2 class="font-bold text-lg">{{ row.name }}</h2>
                                 <p class="text-gray-500">{{ row.email }}</p>
+                                <button class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="openChat(row.id)">Chat</button>
+                            <button v-if="row.status" class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="reportFriend(row.uid)">Report</button>
                             </div>
                         </div>
-                        <div class="flex items-center">
-                            <button class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="openChat(row.id)">Chat</button>
-                            <button v-if="row.status" class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="reportFriend(row.uid)">Report</button>
-                        </div>
+                        <!-- <div class="flex items-center">
+                            
+                        </div> -->
                     </div>
                 </li>
             </ul>
