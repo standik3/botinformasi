@@ -118,7 +118,7 @@ export default {
         // Use a service or your own method to create a default avatar URL
         // Here, we're assuming you have a service that provides default avatars
         // based on the first letter (e.g., https://example.com/avatars/A.png)
-        return `https://example.com/avatars/${firstLetter}.png`;
+        return `https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=${firstLetter}`;
         },
 
         register() {
@@ -144,7 +144,7 @@ export default {
                         const user = userCredential.user;
                         const tableUsers = collection(db, 'Users');
                         const usersSnapshot = await getDocs(tableUsers);
-                        const avatarUrl = generateAvatarUrl(user.email);
+                        const avatarUrl = generateAvatarUrl(this.$refs.name.value);
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,
