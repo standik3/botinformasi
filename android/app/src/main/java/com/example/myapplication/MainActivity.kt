@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         CookieManager.getInstance().setAcceptThirdPartyCookies(vueApp, true)
 
 //        vueApp.loadUrl("https://detik.com/")
-        vueApp.loadUrl("https://botinformasi.netlify.app/login")
+        vueApp.loadUrl("https://botinformasi.netlify.app")
         vueApp.setWebViewClient(object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 return if (url.startsWith("http://") || url.startsWith("https://")) {

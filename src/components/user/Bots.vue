@@ -85,7 +85,7 @@ export default {
                     status: true,
                     seen: false,
                     name: 'Bot Buku Panduan Mahasiswa',
-                    info: 'Snstitut Sains dan Teknologi Terpadu Surabaya',
+                    info: 'Institut Sains dan Teknologi Terpadu Surabaya',
                     photo: '/logo.png',
                     created_at: serverTimestamp(),
                     latest_message: 'Halo, saya Bot Buku Panduan Mahasiswa. Ada yang bisa saya bantu?',
