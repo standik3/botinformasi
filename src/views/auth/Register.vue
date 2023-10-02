@@ -191,6 +191,12 @@ export default {
                         const errorCode = error.code;
                         switch (errorCode) {
                             case 'auth/email-already-in-use':
+                                Swal.fire({
+                                    title: 'Gagal!',
+                                    text: 'Sorry, Your Account not verified!',
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay'
+                                });
                                 alert('Email sudah digunakan');
                                 break;
                             case 'auth/invalid-email':

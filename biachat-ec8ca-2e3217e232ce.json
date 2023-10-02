@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "biachat-ec8ca",
+  "private_key_id": "2e3217e232ce3efbb3a41b1094b4682b1d8bec50",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCwZrXYStmYkq8y\nf+te1KHjBzRPPYC0eKKPfQUdg19+g9XodfCEqlC0UeDasraaS4Y6sC+14dis/dF7\nPOiFBwqpMnXdZzCFVgl7WFqoZyx1ZdY0HSM8TVlZC/VXuUMbWp3nXB/ZCsgBw6zq\nXvHFfHa8PRiB982qRYkPhmSUkLnRpjXEBvzwpYvTnGUoBX31EQk2nFOaiYa5IBg6\nPSlJAQqCWUxsKMRo6FPDXV4PB6oM7HAFhUcBa1PAljH7KOArAb+QrxF/pfqvbYBL\nfFADiwn7x/sx/n/3eFxTXKfVCxm4ZSq2zSzQ04cS35qOYkZXepBbVGQH64hCkdH6\nmqjoI1zXAgMBAAECggEAPnoKQtJz0fV15qlmyB4APkPhc4VBbeniDXcGlkbezhTM\ncLpA1wPpdIwhWuP8B5bjMisPotgcIVz+Uism4WK2lGmCVEnFZhwsXIrVBRsRpHzO\nioOdZLCyifbRzOGZUnlcPsKipwEKCJHwzsuUztC/zvjGktWc+ocJPb3oJrRBk+42\nqjd9XIXcT5ktnwBKnMUUrJdSou5SzAMwJsYHE3oB+3ftAFwaC1hvFAW/eFTnQMQZ\nWLt5JsCtXPZB+xtcEu5RwcCF1a9Xhl/2gHElLdWj2AT3qbZJfrJyL4SyRzKa72Q0\nFn0bMp0yb8aqpIcABgtnoYwjOGfJtIcotoBLFatB7QKBgQDowXNe77jHP1IEpBMU\n9KqOQBsgJ/gcKxQSGeqVD1bbkCZ3lLa7T/Gtk/Oqg4mncxRTlL5omm3sxVZeaO/Y\nsBzcoHBa/ScUUKW687ikERLwyoaE930xFsFsh002roBCti7AhhlzYB5sUVY//b8V\nCjOZxw7ASzrPamAhFHcOP7yhZQKBgQDCBIWEB7dfa+ypOk03YDZ3U7MtK1IvMtIU\nyMRKMWRgLKMGP5jJe5Rkevasn5EBt33nTfoM2TghaKwgYl6gCSRZ0y+aKxxhgb4S\nfIAYdjwapujp0lj+qfebTHeJPTVQXGabN7V3A/11tmx1abm8PrKX6uyOJx7HhUj0\nPYnXl/KfiwKBgQClHfdWdgFDd+wbVroit5724wtbOH+OnBDU9oWv0P3xLMXdNyaa\now/z722AnWfd3omg8XhShJtOyH+I4jCkK+uNqFOMeOJsSvoHMjbeTS5+m23qjhfF\n5zq4XxOrowdiTBPGiFstuhZbCSiCpOQVbPNGOCyCxdumoPQpA3eiKB0M8QKBgQCI\n4B29jqAMfpxAqzPsfEEQoAkJNcXOLIFPTnBEk2HoA7WjY9yLUFbZKHK8R/pKBsSZ\nGUbuJ5TU5P6B/kQZjTmK8VVk40Mrexe3/QN1vnwapWQuCUrlps1bT3AJbxgcsINm\nv7+SzkrS77bGgqcZKfZe/MqUYv7w7ZQRUxTa94SgjwKBgQDgndSWLoL7qvBtgJMY\nY59MDcZZj1JEYDV3goFqRJ/geS3Iscl8UKKrF+d17JAS0C/4KH+gCQVqeWFmxbbV\nDJN/LmSxTbOTkPnNOm94/TIjU2So39PZegydpK4p4Z/FJeqg7yLTnJfYSUBueGKw\nDBslf2FLACIUexKKVypDFik6ew==\n-----END PRIVATE KEY-----\n",
+  "client_email": "botinformasi@biachat-ec8ca.iam.gserviceaccount.com",
+  "client_id": "111967938463692783107",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/botinformasi%40biachat-ec8ca.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
