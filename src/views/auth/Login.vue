@@ -125,19 +125,44 @@ export default {
                 const errorCode = error.code;
                 switch (errorCode) {
                     case 'auth/invalid-email':
-                        alert('Email tidak valid');
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Sorry, Email Tidak Valid!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                         break;
                     case 'auth/user-disabled':
-                        alert('User diblokir');
+                    Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Sorry, Anda Telah diblock oleh admin!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                         break;
                     case 'auth/user-not-found':
-                        alert('User tidak ditemukan');
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Sorry, User tidak ditemukan!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                         break;
                     case 'auth/wrong-password':
-                        alert('Password salah');
+                    Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Sorry, Password yang anda masukkan salah!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                         break;
                     default:
-                        alert('Terjadi kesalahan');
+                    Swal.fire({
+                            title: 'Gagal!',
+                            text: 'ERROR',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                         break;
                 }
             });
