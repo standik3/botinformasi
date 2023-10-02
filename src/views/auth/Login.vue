@@ -68,7 +68,12 @@ export default {
         },
         login() {
             if (this.$refs.email.value === '' || this.$refs.password.value === '') {
-                return;
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: 'TIDAK BOLEH KOSONG',
+                    icon: 'error',
+                    confirmButtonText: 'Okay'
+                });
             }
 
             signInWithEmailAndPassword(auth, this.$refs.email.value, this.$refs.password.value).then(
