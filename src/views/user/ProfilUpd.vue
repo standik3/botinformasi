@@ -97,7 +97,8 @@ export default {
                                 const docRef = doc(db, "Users", docUsers.id);
                                 updateDoc(docRef, {
                                     name: this.$refs.name.value,
-                                    bio: this.$refs.bio.value
+                                    bio: this.$refs.bio.value,
+                                    photo: this.$refs.name.value.charAt(0).toUpperCase()
                                 }).then(() => {
                                     Swal.fire({
                                         title: 'Berhasil!',
@@ -110,7 +111,7 @@ export default {
                                                 uid: this.uid,
                                                 name: this.$refs.name.value,
                                                 email: this.email,
-                                                photo: this.$refs.name.value.charAt(0).toUpperCase(),
+                                                photo: this.photoURL,
                                                 bio: this.$refs.bio.value,
                                                 role: 'user',
                                                 active: 'y',
