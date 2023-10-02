@@ -107,7 +107,7 @@ export default {
                         const tblReport = collection(db, "Reports");
                         const qryReport = query(tblReport, where("uid_report", "==", this.uid));
                         const resReport = await getDocs(qryReport);
-
+                        let photoURLS = "https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=" + user.photo
                         this.chats.push({
                             id: docFriends.id,
                             seen: docFriends.data().seen,
@@ -115,7 +115,7 @@ export default {
                             uid: user.uid,
                             name: user.name,
                             email: user.email,
-                            photo: user.photo,
+                            photo: photoURLS,
                             status: (resReport.empty ? true : false)
                         });
                     });
