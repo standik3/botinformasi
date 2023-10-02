@@ -241,6 +241,7 @@ export default {
                                     icon: 'error',
                                     confirmButtonText: 'Okay'
                                 });
+                                console.log(error);
                                 break;
                         }
                     });
