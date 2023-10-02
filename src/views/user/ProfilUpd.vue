@@ -111,7 +111,7 @@ export default {
                                                 uid: this.uid,
                                                 name: this.$refs.name.value,
                                                 email: this.email,
-                                                photo: this.photoURL,
+                                                photo: this.$refs.name.value.charAt(0).toUpperCase(),
                                                 bio: this.$refs.bio.value,
                                                 role: 'user',
                                                 active: 'y',
