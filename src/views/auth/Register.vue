@@ -123,14 +123,19 @@ export default {
 
         register() {
             if (this.$refs.name.value === '' || this.$refs.email.value === '' || this.$refs.password.value === '' || this.$refs.re_password.value === '') {
-                return;
+                Swal.fire({
+                    title: 'Gagal!',
+                    text: 'TIDAK BOLEH KOSONG',
+                    icon: 'error',
+                    confirmButtonText: 'Okay'
+                });;
             }
 
             if (this.$refs.password.value !== this.$refs.re_password.value) {
                 Swal.fire({
                     title: 'Gagal!',
                     text: 'Sorry, Password not same!',
-                    icon: 'success',
+                    icon: 'error',
                     confirmButtonText: 'Okay'
                 });
             } else {
