@@ -9,7 +9,7 @@
         <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Profil</h1>
         <img class="object-cover w-50 h-50 rounded-full" src="https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text={{photoURL}}" alt="photoURL" />
         <p class="text-gray-500">NAMA    : {{ nama }}<br>EMAIL   : {{ email }} </p>
-        <p class="text-gray-500">{{ bio }}</p>
+        <p class="text-gray-500">{{ photoURL }} {{ bio }}</p>
         <div class="relative flex justify-between">
             <button class="bg-green-500 hover:bg-green-700 text-white font-bold mx-2 my-2 py-2 px-4 rounded-full" @click="editProfil">Edit Profil</button>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold mx-2 my-2 py-2 px-4 rounded-full" @click="handleLogout">Logout</button>
