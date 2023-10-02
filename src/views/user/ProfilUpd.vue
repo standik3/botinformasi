@@ -66,12 +66,12 @@ export default {
     methods: {
         loadUser() {
             let user = JSON.parse(localStorage.getItem('user'));
-
+            let photoURL = "https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=" + user.photo
             this.uid = user.uid;
             this.bio = user.bio;
             this.name = user.name;
             this.email = user.email;
-            this.photoURL = user.photo;
+            this.photoURL = photoURL;
             this.token_notification = user.token_notification;
 
         },
@@ -111,7 +111,7 @@ export default {
                                                 uid: this.uid,
                                                 name: this.$refs.name.value,
                                                 email: this.email,
-                                                photo: this.$refs.name.value.charAt(0).toUpperCase(),
+                                                photo: this.photoURL,
                                                 bio: this.$refs.bio.value,
                                                 role: 'user',
                                                 active: 'y',
