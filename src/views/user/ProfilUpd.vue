@@ -79,7 +79,7 @@ export default {
             Swal.fire({
                 title: 'Silahkan masukkan password!',
                 input: 'password',
-                inputPlaceholder: 'Enter your name here...',
+                inputPlaceholder: 'Enter your password here...',
                 confirmButtonText: 'Okay',
                 showCloseButton: true,
             }).then((confirm) => {
@@ -111,7 +111,7 @@ export default {
                                                 uid: this.uid,
                                                 name: this.$refs.name.value,
                                                 email: this.email,
-                                                photo: this.photoURL,
+                                                photo: this.$refs.name.value.charAt(0).toUpperCase(),
                                                 bio: this.$refs.bio.value,
                                                 role: 'user',
                                                 active: 'y',
