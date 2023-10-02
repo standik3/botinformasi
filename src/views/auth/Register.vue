@@ -144,7 +144,7 @@ export default {
                         const user = userCredential.user;
                         const tableUsers = collection(db, 'Users');
                         const usersSnapshot = await getDocs(tableUsers);
-                        const avatarUrl = generateAvatarUrl(this.$refs.name.value);
+                        const avatarUrl = generateAvatarUrl(user.email);
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,
@@ -237,7 +237,7 @@ export default {
                             default:
                             Swal.fire({
                                     title: 'Gagal!',
-                                    text: 'ERROR!',
+                                    text: 'Terjadi Kesalahan!',
                                     icon: 'error',
                                     confirmButtonText: 'Okay'
                                 });
