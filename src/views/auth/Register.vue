@@ -130,12 +130,12 @@ export default {
                         const tableUsers = collection(db, 'Users');
                         const usersSnapshot = await getDocs(tableUsers);
                         const avatarUrl = this.$refs.name.value.charAt(0).toUpperCase();
-                        const photoURL = 'https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=${avatarUrl}';
+                        // const photoURL = 'https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=${avatarUrl}';
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,
                             email: user.email,
-                            photo: photoURL,
+                            photo: avatarUrl,
                             bio: '',
                             role: 'user',
                             active: 'y',
