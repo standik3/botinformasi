@@ -90,7 +90,7 @@ export default {
                                     uid: docUsers.data().uid,
                                     name: docUsers.data().name,
                                     email: docUsers.data().email,
-                                    photo: docUsers.data().photoURL,
+                                    photo: docUsers.data().photo,
                                     bio: docUsers.data().bio,
                                     role: 'user',
                                     active: 'y',

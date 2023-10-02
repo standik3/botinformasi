@@ -72,11 +72,11 @@ export default {
         },
         loadUser() {
             let user = JSON.parse(localStorage.getItem('user'));
-
+            let photoURL = 'https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=' + user.photo
             this.uid = user.uid;
             this.nama = user.name;
             this.email = user.email;
-            this.photoURL = user.photo;
+            this.photoURL = photoURL;
         },
     },
     mounted() {
