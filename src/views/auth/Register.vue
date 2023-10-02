@@ -193,20 +193,34 @@ export default {
                             case 'auth/email-already-in-use':
                                 Swal.fire({
                                     title: 'Gagal!',
-                                    text: 'Sorry, Your Account not verified!',
+                                    text: 'Sorry, Email sudah digunakan!',
                                     icon: 'error',
                                     confirmButtonText: 'Okay'
                                 });
-                                alert('Email sudah digunakan');
                                 break;
                             case 'auth/invalid-email':
-                                alert('Email tidak valid');
+                            Swal.fire({
+                                    title: 'Gagal!',
+                                    text: 'Sorry, Email Tidak valid!',
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay'
+                                });
                                 break;
                             case 'auth/weak-password':
-                                alert('Password lemah');
+                            Swal.fire({
+                                    title: 'Gagal!',
+                                    text: 'Sorry, Password Lemah!',
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay'
+                                });
                                 break;
                             default:
-                                alert('Terjadi kesalahan');
+                            Swal.fire({
+                                    title: 'Gagal!',
+                                    text: 'ERROR!',
+                                    icon: 'error',
+                                    confirmButtonText: 'Okay'
+                                });
                                 break;
                         }
                     });
