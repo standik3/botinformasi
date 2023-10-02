@@ -106,6 +106,21 @@ export default {
                 name: 'auth-login'
             });
         },
+        generateAvatarUrl(name) {
+        // Ensure 'name' is not empty
+        if (!name) {
+            return null;
+        }
+
+        // Get the first letter of the name
+        const firstLetter = name.charAt(0).toUpperCase();
+
+        // Use a service or your own method to create a default avatar URL
+        // Here, we're assuming you have a service that provides default avatars
+        // based on the first letter (e.g., https://example.com/avatars/A.png)
+        return `https://example.com/avatars/${firstLetter}.png`;
+        },
+
         register() {
             if (this.$refs.name.value === '' || this.$refs.email.value === '' || this.$refs.password.value === '' || this.$refs.re_password.value === '') {
                 return;
@@ -124,12 +139,12 @@ export default {
                         const user = userCredential.user;
                         const tableUsers = collection(db, 'Users');
                         const usersSnapshot = await getDocs(tableUsers);
-
+                        const avatarUrl = generateAvatarUrl(this.$refs.name.value);
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,
                             email: user.email,
-                            photo: user.photoURL,
+                            photo: avatarUrl,
                             bio: '',
                             role: 'user',
                             active: 'y',
