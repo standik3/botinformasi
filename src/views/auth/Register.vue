@@ -57,10 +57,11 @@ import {
     sendEmailVerification
 } from "firebase/auth";
 import {
+    getToken,
     onMessage
 } from "firebase/messaging";
 import Swal from "sweetalert2";
-import { getMessaging, getToken } from 'firebase/messaging';
+
 export default {
     name: 'Register',
     data() {
@@ -130,20 +131,6 @@ export default {
                         const usersSnapshot = await getDocs(tableUsers);
                         const avatarUrl = this.$refs.name.value.charAt(0).toUpperCase();
                         // const photoURL = 'https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=${avatarUrl}';
-                        const messaging = getMessaging();
-                        let tokenNotification="";
-                        getToken(messaging)
-                        .then((currentToken) => {
-                            if (currentToken) {
-                            // You have the user's notification token. You can proceed to store it in Firestore or elsewhere.
-                            tokenNotification = currentToken
-                            } else {
-                            // No notification token available for the user.
-                            }
-                        })
-                        .catch((error) => {
-                            // Handle any errors related to token retrieval.
-                        });
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,
@@ -152,7 +139,7 @@ export default {
                             bio: '',
                             role: 'user',
                             active: 'y',
-                            token_notification: tokenNotification
+                            token_notification: this.tokenNotification,
                         }
 
                         if (usersSnapshot.empty) {
