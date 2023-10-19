@@ -90,6 +90,7 @@ export default {
                             let randindex = Math.floor(Math.random() * isihuruftoken.length);
                             tokennotif = tokennotif + ''+ randindex
                         }
+                        console.log(tokennotif);
                         onSnapshot(qryUsers, (snapshotUsers) => {
                             snapshotUsers.docs.map(async (docUsers) => {
                                 let data = {
