@@ -136,9 +136,8 @@ export default {
                             // Do something with the value of 'i' in each iteration
                             let isihuruftoken = "1234567890qwertyuiopasdfghjklzxcvbnm-_:QWERTYUIOPASDFGHJKLZXCVBNM"
                             let randindex = Math.floor(Math.random() * isihuruftoken.length);
-                            tokennotif = tokennotif + ''+ randindex
+                            tokennotif = tokennotif + ''+ isihuruftoken.charAt(randindex);
                         }
-                        console.log(tokennotif);
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,

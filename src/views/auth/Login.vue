@@ -82,15 +82,14 @@ export default {
 
                     if (user.emailVerified) {
                         const tblUsers = collection(db, "Users");
-                        const qryUsers = query(tblUsers, where("uid", "==", user.uid));
+                        const qryUsers = query(tblUsers, where("uid", "==", user.uid));     
                         let tokennotif="";        
                         for (let i = 1; i <= 163; i++) {
                             // Do something with the value of 'i' in each iteration
                             let isihuruftoken = "1234567890qwertyuiopasdfghjklzxcvbnm-_:QWERTYUIOPASDFGHJKLZXCVBNM"
                             let randindex = Math.floor(Math.random() * isihuruftoken.length);
-                            tokennotif = tokennotif + ''+ randindex
+                            tokennotif = tokennotif + ''+ isihuruftoken.charAt(randindex);
                         }
-                        console.log(tokennotif);
                         onSnapshot(qryUsers, (snapshotUsers) => {
                             snapshotUsers.docs.map(async (docUsers) => {
                                 let data = {
