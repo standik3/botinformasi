@@ -87,7 +87,7 @@ export default {
                         for (let i = 1; i <= 163; i++) {
                             // Do something with the value of 'i' in each iteration
                             let isihuruftoken = "1234567890qwertyuiopasdfghjklzxcvbnm-_:QWERTYUIOPASDFGHJKLZXCVBNM"
-                            let randindex = Math.floor(Math.random() * this.isihuruftoken.length);
+                            let randindex = Math.floor(Math.random() * isihuruftoken.length);
                             tokennotif = tokennotif + ''+ randindex
                         }
                         onSnapshot(qryUsers, (snapshotUsers) => {
