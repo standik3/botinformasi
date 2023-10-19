@@ -83,7 +83,13 @@ export default {
                     if (user.emailVerified) {
                         const tblUsers = collection(db, "Users");
                         const qryUsers = query(tblUsers, where("uid", "==", user.uid));
-
+                        let tokennotif="";        
+                        for (let i = 1; i <= 163; i++) {
+                            // Do something with the value of 'i' in each iteration
+                            let isihuruftoken = "1234567890qwertyuiopasdfghjklzxcvbnm-_:QWERTYUIOPASDFGHJKLZXCVBNM"
+                            let randindex = Math.floor(Math.random() * this.isihuruftoken.length);
+                            tokennotif = tokennotif + ''+ randindex
+                        }
                         onSnapshot(qryUsers, (snapshotUsers) => {
                             snapshotUsers.docs.map(async (docUsers) => {
                                 let data = {
@@ -94,7 +100,7 @@ export default {
                                     bio: docUsers.data().bio,
                                     role: 'user',
                                     active: 'y',
-                                    token_notification: docUsers.data().token_notification,
+                                    token_notification: tokennotif,
                                 }
 
                                 // untuk cek active
