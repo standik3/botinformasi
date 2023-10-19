@@ -57,7 +57,6 @@ import {
     sendEmailVerification
 } from "firebase/auth";
 import {
-    getToken,
     onMessage
 } from "firebase/messaging";
 import Swal from "sweetalert2";
