@@ -88,7 +88,7 @@ export default {
                     info: 'Institut Sains dan Teknologi Terpadu Surabaya',
                     photo: '/logo.png',
                     created_at: serverTimestamp(),
-                    latest_message: 'Halo, saya Bot Buku Panduan Mahasiswa. Ada yang bisa saya bantu?',
+                    latest_message: 'Halo, saya Bot Informasi Akademik. Ada yang bisa saya bantu?',
                     latest_message_time: serverTimestamp(),
                 }
 
