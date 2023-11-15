@@ -84,7 +84,7 @@ export default {
                     uid: this.uid,
                     status: true,
                     seen: false,
-                    name: 'Bot Buku Panduan Mahasiswa',
+                    name: 'Bot Informasi Akademik',
                     info: 'Institut Sains dan Teknologi Terpadu Surabaya',
                     photo: '/logo.png',
                     created_at: serverTimestamp(),
