@@ -98,7 +98,7 @@ export default {
                     const dataMessage = {
                         uid: this.uid,
                         type: 'bot',
-                        message: 'Halo, saya Bot Buku Panduan Mahasiswa. Ada yang bisa saya bantu?',
+                        message: 'Halo, saya Bot Informasi Akademik. Ada yang bisa saya bantu?',
                         created_at: serverTimestamp(),
                     }
 
