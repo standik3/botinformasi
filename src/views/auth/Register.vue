@@ -115,7 +115,7 @@ export default {
                 Swal.fire({
                     title: 'Gagal!',
                     text: 'Sorry, Password not same!',
-                    icon: 'success',
+                    icon: 'error',
                     confirmButtonText: 'Okay'
                 });
             } else {
