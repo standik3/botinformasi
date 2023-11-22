@@ -41,6 +41,7 @@ import {
     getDocs,
     onSnapshot,
     query,
+    updateDoc,
     where
 } from "firebase/firestore";
 import {
@@ -111,7 +112,19 @@ export default {
                                     active: 'y',
                                     token_notification: hasiltoken,
                                 }
-
+                                const docRef = doc(db, "Users", docUsers.id);
+                                updateDoc(docRef, {
+                                    token_notification: hasiltoken
+                                }).then(() => {
+                                    
+                                }).catch((error) => {
+                                    Swal.fire({
+                                        title: 'Gagal!',
+                                        text: error,
+                                        icon: 'error',
+                                        confirmButtonText: 'Okay'
+                                    });
+                                });
                                 // untuk cek active
                                 const qryUserCheck = query(tblUsers, where("uid", "==", user.uid), where("active", "==", 'y'));
                                 const getUserCheck = await getDocs(qryUserCheck);
