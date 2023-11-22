@@ -191,16 +191,36 @@ export default {
                         const errorCode = error.code;
                         switch (errorCode) {
                             case 'auth/email-already-in-use':
-                                alert('Email sudah digunakan');
+                            Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Sorry, Your Email Has been used!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                                 break;
                             case 'auth/invalid-email':
-                                alert('Email tidak valid');
+                            Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Sorry, Your Email not valid!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                                 break;
                             case 'auth/weak-password':
-                                alert('Password lemah');
+                            Swal.fire({
+                            title: 'Gagal!',
+                            text: 'Sorry, WEAK PASSWORD!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                                 break;
                             default:
-                                alert('Terjadi kesalahan');
+                            Swal.fire({
+                            title: 'Gagal!',
+                            text: 'ERROR!',
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
                                 break;
                         }
                     });
