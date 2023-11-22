@@ -4,8 +4,7 @@
             class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
              <img class="h-40 w-40 rounded-full object-cover mb-5" src="/logo.png" alt="Logo">
-            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Welcome to My Social Media</h1>
-            <p class="text-gray-500">This is a My Social Media Network</p>
+            <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">BIAchat</h1>
             <p class="text-gray-500">Login to continue</p>
 
             <div class="relative flex justify-between">
