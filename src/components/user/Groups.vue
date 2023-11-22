@@ -14,6 +14,7 @@ import Loading from "./../Loading.vue";
                         <div class="flex items-center">
                             <h2 class="font-bold text-lg">{{ row.name }}</h2>
                         </div>
+                        <br>
                         <div class="flex items-center">
                             <button class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="openGroup(row.id)">Chat</button>
                             <button class="bg-blue-500 m-1 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg" @click="viewGroup(row.id)">View</button>
