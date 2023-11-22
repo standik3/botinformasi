@@ -4,7 +4,7 @@
             <router-link to="/user/home" class="items-center p-2">
                 <font-awesome-icon icon="fa-solid fa-arrow-left" />
             </router-link>
-            <h1 class="font-bold">{{ this.name }}</h1>
+            <h1 class="font-bold">{{ this.name }} | {{ this.id }}</h1>
         </div>
         <div class="relative" v-if="this.id !== ''">
             <button @click="show = !show" class="items-center p-2">

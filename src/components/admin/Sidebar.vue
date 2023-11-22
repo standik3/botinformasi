@@ -26,11 +26,6 @@
       icon: 'fa-solid fa-users'
     },
     {
-      name: 'Chat',
-      href: '/admin/chat',
-      icon: 'fa-solid fa-message'
-    },
-    {
       name: 'Group',
       href: '/admin/group',
       icon: 'fa-solid fa-user-group'

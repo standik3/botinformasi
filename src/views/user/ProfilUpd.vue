@@ -2,7 +2,7 @@
 <template>
     <div class="flex flex-col flex-grow items-center justify-center">
         <div class="my-5">
-            <img class="object-cover w-50 h-50 rounded-full" :src="photoURL" :alt="name" />
+            <img class="object-cover w-50 h-50 rounded-full" :src="photoURL" :alt="name" width="100" height="100" />
         </div>
         <div class="mb-6">
             <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Your email</label>
@@ -66,87 +66,60 @@ export default {
     methods: {
         loadUser() {
             let user = JSON.parse(localStorage.getItem('user'));
-            let photoURLS = "https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=" + user.photo
+
             this.uid = user.uid;
             this.bio = user.bio;
             this.name = user.name;
             this.email = user.email;
-            this.photoURL = photoURLS;
+            this.photoURL = user.photo ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';
             this.token_notification = user.token_notification;
 
         },
         async updateProfil() {
-            Swal.fire({
-                title: 'Silahkan masukkan password!',
-                input: 'password',
-                inputPlaceholder: 'Enter your password here...',
-                confirmButtonText: 'Okay',
-                showCloseButton: true,
-            }).then((confirm) => {
-                if (confirm.value === '') {
-                    return;
-                }
+            if (confirm.value === '') {
+                return;
+            }
 
-                signInWithEmailAndPassword(auth, this.email, confirm.value).then(
-                    (userCredential) => {
-                        const tblUsers = collection(db, "Users");
-                        const qryUsers = query(tblUsers, where("uid", "==", this.uid));
+            const tblUsers = collection(db, "Users");
+            const qryUsers = query(tblUsers, where("uid", "==", this.uid));
 
-                        onSnapshot(qryUsers, (snapshotUsers) => {
-                            snapshotUsers.docs.map(async (docUsers) => {
-                                const docRef = doc(db, "Users", docUsers.id);
-                                updateDoc(docRef, {
+            onSnapshot(qryUsers, (snapshotUsers) => {
+                snapshotUsers.docs.map(async (docUsers) => {
+                    const docRef = doc(db, "Users", docUsers.id);
+                    updateDoc(docRef, {
+                        name: this.$refs.name.value,
+                        bio: this.$refs.bio.value
+                    }).then(() => {
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: 'Selamat, akun Anda telah diubah!',
+                            icon: 'success',
+                            confirmButtonText: 'Okay'
+                        }).then((confirm) => {
+                            if (confirm.isConfirmed) {
+                                let data = {
+                                    uid: this.uid,
                                     name: this.$refs.name.value,
+                                    email: this.email,
+                                    photo: this.photoURL,
                                     bio: this.$refs.bio.value,
-                                    photo: this.$refs.name.value.charAt(0).toUpperCase()
-                                }).then(() => {
-                                    Swal.fire({
-                                        title: 'Berhasil!',
-                                        text: 'Selamat, akun Anda telah diubah!',
-                                        icon: 'success',
-                                        confirmButtonText: 'Okay'
-                                    }).then((confirm) => {
-                                        if (confirm.isConfirmed) {
-                                            let data = {
-                                                uid: this.uid,
-                                                name: this.$refs.name.value,
-                                                email: this.email,
-                                                photo: this.$refs.name.value.charAt(0).toUpperCase(),
-                                                bio: this.$refs.bio.value,
-                                                role: 'user',
-                                                active: 'y',
-                                                token_notification: this.token_notification,
-                                            }
+                                    role: 'user',
+                                    active: 'y',
+                                    token_notification: this.token_notification,
+                                }
 
-                                            localStorage.removeItem('user');
-                                            localStorage.setItem('user', JSON.stringify(data));
-                                        }
-                                    });
-                                }).catch((error) => {
-                                    Swal.fire({
-                                        title: 'Gagal!',
-                                        text: error,
-                                        icon: 'error',
-                                        confirmButtonText: 'Okay'
-                                    });
-                                });
-                            });
+                                localStorage.removeItem('user');
+                                localStorage.setItem('user', JSON.stringify(data));
+                            }
                         });
                     }).catch((error) => {
-                    const errorCode = error.code;
-                    switch (errorCode) {
-                        case 'auth/wrong-password':
-                            Swal.fire({
-                                title: 'Gagal!',
-                                text: 'Sorry, Password salah!',
-                                icon: 'error',
-                                confirmButtonText: 'Okay'
-                            });
-                            break;
-                        default:
-                            alert('Terjadi kesalahan');
-                            break;
-                    }
+                        Swal.fire({
+                            title: 'Gagal!',
+                            text: error,
+                            icon: 'error',
+                            confirmButtonText: 'Okay'
+                        });
+                    });
                 });
             });
         }

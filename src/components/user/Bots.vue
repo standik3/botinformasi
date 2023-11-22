@@ -84,11 +84,11 @@ export default {
                     uid: this.uid,
                     status: true,
                     seen: false,
-                    name: 'Bot Informasi Akademik',
-                    info: 'Institut Sains dan Teknologi Terpadu Surabaya',
+                    name: 'Bot Buku Panduan Mahasiswa',
+                    info: 'Snstitut Sains dan Teknologi Terpadu Surabaya',
                     photo: '/logo.png',
                     created_at: serverTimestamp(),
-                    latest_message: 'Halo, saya Bot Informasi Akademik. Ada yang bisa saya bantu?',
+                    latest_message: 'Halo, saya Bot Buku Panduan Mahasiswa. Ada yang bisa saya bantu?',
                     latest_message_time: serverTimestamp(),
                 }
 
@@ -98,7 +98,7 @@ export default {
                     const dataMessage = {
                         uid: this.uid,
                         type: 'bot',
-                        message: 'Halo, saya Bot Informasi Akademik. Ada yang bisa saya bantu?',
+                        message: 'Halo, saya Bot Buku Panduan Mahasiswa. Ada yang bisa saya bantu?',
                         created_at: serverTimestamp(),
                     }
 

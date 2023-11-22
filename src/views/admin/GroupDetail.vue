@@ -9,14 +9,13 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
 
     <div class="pt-5">
         <ul class="space-y-4">
-            <li class="bg-white rounded-lg shadow-md p-4" v-for="row in question" :key="row.id">
+            <li class="bg-white rounded-lg shadow-md p-4" v-for="row in members" :key="row.id">
                 <div class="flex justify-between mb-2">
                     <div class="flex items-center">
                         <img class="h-10 w-10 rounded-full object-cover mr-2" :src="row.photo" :alt="row.name" width="100" height="100">
                         <div>
                             <h2 class="font-bold text-lg">{{ row.name }}</h2>
                             <p class="text-gray-500">{{ row.email }}</p>
-                            <p class="text-gray-500">{{ row.message }}</p>
                         </div>
                     </div>
                 </div>
@@ -28,10 +27,9 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
 <script>
 import { collection, doc, getDoc, getDocs, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { db } from '../../firebase';
-import { onUnmounted, ref } from 'vue';
 
 export default {
-    name: 'Bot Detail',
+    name: 'Group Detail',
     props: {
         id: {
             type: String,
@@ -42,15 +40,15 @@ export default {
         return {
             crumbs: [
                 { 'link': '/admin/dashboard', 'name': 'Dashboard' },
-                { 'link': '/admin/bot', 'name': 'Bot' },
+                { 'link': '/admin/group', 'name': 'Group' },
                 { 'link': '#', 'name': 'Detail' },
             ],
-            question: ref([]),
+            members: [],
             users: []
         };
     },
     methods: {
-        async loadQuestion() {
+        async loadMembers() {
             try {
                 // untuk ambil data users
                 const tblUsers = query(collection(db, 'Users'));
@@ -59,19 +57,21 @@ export default {
                     id: docUsers.id,
                     ...docUsers.data()
                 }));
-                const tblBots = doc(db, "Bots", this.id);
-                const getBots = await getDoc(tblBots);
-                if (getBots.exists()) {
+                
+                const tblGroups = doc(db, "Groups", this.id);
+                const getGroups = await getDoc(tblGroups);
+                if (getGroups.exists()) {
                     console.log('Collection does exist');
-                    const tblMessages = collection(db, "Bots/" + this.id + "/Messages");
-                    const qryMessages = query(tblMessages, where('type', "==", 'user'));
-                    const unsubscribe = onSnapshot(qryMessages, (snapshotMessages) => {
-                        snapshotMessages.docs.map((docMessages) => {
+
+                    const tblGroupMembers = collection(db, "Groups/" + this.id + "/Members");
+                    const qryGroupMembers = query(tblGroupMembers, orderBy('created_at', 'desc'));
+
+                    onSnapshot(qryGroupMembers, (snapshotMembers) => {
+                        snapshotMembers.docs.map((docMembers) => {
                             let user = null;
-                            user = this.users.find((row) => row.uid == docMessages.data().uid);
-                            this.question.push({
-                                id: docMessages.id,
-                                message: docMessages.data().message,
+                            user = this.users.find((row) => row.uid == docMembers.data().uid);
+                            this.members.push({
+                                id: docMembers.id,
                                 uid: user.uid,
                                 name: user.name,
                                 email: user.email,
@@ -79,10 +79,9 @@ export default {
                             });
                         });
                     });
-                    
-                    onUnmounted(unsubscribe);
-                }
-                else {
+
+                    console.log(this.members);
+                } else {
                     console.log('Collection does not exist');
                 }
             }
@@ -92,7 +91,7 @@ export default {
         },
     },
     mounted() {
-        this.loadQuestion();
+        this.loadMembers();
     },
     components: { Breadcrumb }
 }

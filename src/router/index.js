@@ -23,6 +23,7 @@ import DashboardAdminView from '../views/admin/Dashboard.vue'
 import UserAdminView from '../views/admin/User.vue'
 import ChatAdminView from '../views/admin/Chat.vue'
 import GroupAdminView from '../views/admin/Group.vue'
+import GroupDetailAdminView from '../views/admin/GroupDetail.vue'
 import BotAdminView from '../views/admin/Bot.vue'
 import BotDetailAdminView from '../views/admin/BotDetail.vue'
 import BaseAdminLayout from '../layouts/BaseAdmin.vue'
@@ -164,6 +165,12 @@ const router = createRouter({
                     path: 'group',
                     name: 'admin-group',
                     component: GroupAdminView,
+                },
+                {
+                    path: 'group/detail/:id',
+                    name: 'admin-group-detail',
+                    component: GroupDetailAdminView,
+                    props: true,
                 },
                 {
                     path: 'bot',

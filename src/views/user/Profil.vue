@@ -7,8 +7,9 @@
     </div>
     <div class="flex flex-col flex-grow items-center justify-center">
         <h1 class="text-4xl font-bold text-gray-800 px-4 pb-5">Profil</h1>
-        <img class="object-cover w-50 h-50 rounded-full" :src="photoURL" :alt="photoURL" />
-        <p class="text-gray-500">NAMA    : {{ nama }}<br>EMAIL   : {{ email }} </p>
+        <img class="object-cover w-50 h-50 rounded-full" :src="photoURL" :alt="nama" width="100" height="100" />
+        <p class="text-gray-500">{{ nama }}</p>
+        <p class="text-gray-500">{{ email }}</p>
         <p class="text-gray-500">{{ bio }}</p>
         <div class="relative flex justify-between">
             <button class="bg-green-500 hover:bg-green-700 text-white font-bold mx-2 my-2 py-2 px-4 rounded-full" @click="editProfil">Edit Profil</button>
@@ -40,12 +41,12 @@ export default {
         },
         loadUser() {
             let user = JSON.parse(localStorage.getItem('user'));
-            let photoURL = "https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=" + user.photo
+
             this.uid = user.uid;
-            this.bio = user.bio;
+            this.bio = user.bio || '-';
             this.nama = user.name;
             this.email = user.email;
-            this.photoURL = photoURL;
+            this.photoURL = user.photo ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png';;
         },
         handleLogout() {
             signOut(auth).then(() => {

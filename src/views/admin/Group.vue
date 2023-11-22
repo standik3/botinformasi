@@ -11,16 +11,20 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
         <table class="table-auto w-full text-center">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Name</th>
-                    <th>Latest Message</th>
+                    <th>Id</th>
+                    <th>Member</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="row in groups" :key="row.id">
-                    <td>{{ row.id }}</td>
                     <td>{{ row.name }}</td>
-                    <td>{{ row.latest_message }}</td>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.member }}</td>
+                    <td>
+                        <button class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="detailGroup(row.id)">Detail</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -35,6 +39,7 @@ import {
     getDocs,
     onSnapshot,
     orderBy,
+    getCountFromServer,
 } from "firebase/firestore";
 
 export default {
@@ -49,6 +54,14 @@ export default {
         }
     },
     methods: {
+        detailGroup(id) {
+            this.$router.push({
+                name: 'admin-group-detail',
+                params: {
+                    id: id
+                }
+            });
+        },
         async getData() {
             const tblGroups = collection(db, 'Groups');
             const qryGroups = query(tblGroups, orderBy('created_at', 'desc'));
@@ -57,10 +70,14 @@ export default {
             if (!getGroups.empty) {
                 onSnapshot(qryGroups, (snapshot) => {
                     this.groups = [];
-                    snapshot.docs.forEach(doc => {
+                    snapshot.docs.forEach(async doc => {
+                        const tblGroupMembers = collection(db, "Groups/" + doc.id + "/Members");
+                        const snapshot = await getCountFromServer(tblGroupMembers);
+
                         this.groups.push({
                             id: doc.id,
                             name: doc.data().name,
+                            member: snapshot.data().count,
                             latest_message: doc.data().latest_message,
                         });
                     });

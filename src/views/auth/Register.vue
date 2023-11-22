@@ -4,13 +4,13 @@
             class="flex flex-col flex-grow items-center justify-center w-full max-w-xl bg-white shadow-xl rounded-lg overflow-hidden">
             <!-- begin:: body -->
             <div class="bg-white lg:w-6/12 md:7/12 w-8/12 shadow-3xl">
-                <!-- <div
+                <div
                     class="bg-gray-800 absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="#FFF">
                         <path
                             d="M0 3v18h24v-18h-24zm6.623 7.929l-4.623 5.712v-9.458l4.623 3.746zm-4.141-5.929h19.035l-9.517 7.713-9.518-7.713zm5.694 7.188l3.824 3.099 3.83-3.104 5.612 6.817h-18.779l5.513-6.812zm9.208-1.264l4.616-3.741v9.348l-4.616-5.607z" />
                     </svg>
-                </div> -->
+                </div>
                 <div class="md:pt-24">
                     <div class="flex items-center text-lg mb-6 md:mb-8">
                         <font-awesome-icon class="absolute ml-3" icon="fa-solid fa-user" />
@@ -108,19 +108,14 @@ export default {
         },
         register() {
             if (this.$refs.name.value === '' || this.$refs.email.value === '' || this.$refs.password.value === '' || this.$refs.re_password.value === '') {
-                Swal.fire({
-                    title: 'Gagal!',
-                    text: 'TIDAK BOLEH KOSONG',
-                    icon: 'error',
-                    confirmButtonText: 'Okay'
-                });;
+                return;
             }
 
             if (this.$refs.password.value !== this.$refs.re_password.value) {
                 Swal.fire({
                     title: 'Gagal!',
                     text: 'Sorry, Password not same!',
-                    icon: 'error',
+                    icon: 'success',
                     confirmButtonText: 'Okay'
                 });
             } else {
@@ -129,24 +124,16 @@ export default {
                         const user = userCredential.user;
                         const tableUsers = collection(db, 'Users');
                         const usersSnapshot = await getDocs(tableUsers);
-                        const avatarUrl = this.$refs.name.value.charAt(0).toUpperCase();
-                        // const photoURL = 'https://via.placeholder.com/100x100.png/007BFF/FFFFFF/?text=${avatarUrl}';
-                        let tokennotif="";        
-                        for (let i = 1; i <= 163; i++) {
-                            // Do something with the value of 'i' in each iteration
-                            let isihuruftoken = "1234567890qwertyuiopasdfghjklzxcvbnm-_:QWERTYUIOPASDFGHJKLZXCVBNM"
-                            let randindex = Math.floor(Math.random() * isihuruftoken.length);
-                            tokennotif = tokennotif + ''+ isihuruftoken.charAt(randindex);
-                        }
+
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,
                             email: user.email,
-                            photo: avatarUrl,
+                            photo: user.photoURL,
                             bio: '',
                             role: 'user',
                             active: 'y',
-                            token_notification: tokennotif,
+                            token_notification: this.tokenNotification,
                         }
 
                         if (usersSnapshot.empty) {
@@ -204,37 +191,16 @@ export default {
                         const errorCode = error.code;
                         switch (errorCode) {
                             case 'auth/email-already-in-use':
-                                Swal.fire({
-                                    title: 'Gagal!',
-                                    text: 'Sorry, Email sudah digunakan!',
-                                    icon: 'error',
-                                    confirmButtonText: 'Okay'
-                                });
+                                alert('Email sudah digunakan');
                                 break;
                             case 'auth/invalid-email':
-                            Swal.fire({
-                                    title: 'Gagal!',
-                                    text: 'Sorry, Email Tidak valid!',
-                                    icon: 'error',
-                                    confirmButtonText: 'Okay'
-                                });
+                                alert('Email tidak valid');
                                 break;
                             case 'auth/weak-password':
-                            Swal.fire({
-                                    title: 'Gagal!',
-                                    text: 'Sorry, Password Lemah!',
-                                    icon: 'error',
-                                    confirmButtonText: 'Okay'
-                                });
+                                alert('Password lemah');
                                 break;
                             default:
-                            Swal.fire({
-                                    title: 'Gagal!',
-                                    text: 'Terjadi Kesalahan!',
-                                    icon: 'error',
-                                    confirmButtonText: 'Okay'
-                                });
-                                console.log(error);
+                                alert('Terjadi kesalahan');
                                 break;
                         }
                     });
