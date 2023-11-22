@@ -124,7 +124,8 @@ export default {
                         const user = userCredential.user;
                         const tableUsers = collection(db, 'Users');
                         const usersSnapshot = await getDocs(tableUsers);
-
+                        let hurufrandom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+                        let hasiltoken='';
                         let data = {
                             uid: user.uid,
                             name: this.$refs.name.value,

@@ -75,12 +75,32 @@ export default {
                 (userCredential) => {
                     const user = userCredential.user;
 
-                    if (user.emailVerified) {
+                    // if (user.emailVerified) {
                         const tblUsers = collection(db, "Users");
                         const qryUsers = query(tblUsers, where("uid", "==", user.uid));
 
                         onSnapshot(qryUsers, (snapshotUsers) => {
                             snapshotUsers.docs.map(async (docUsers) => {
+                                let hurufrandom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                                let hasiltoken='';
+                                do {                                    
+                                    if(docUsers.data().token_notification == ''){
+                                        for (let i = 1; i <= 163; i++) {
+                                            const randomIndex = Math.floor(Math.random() * hurufrandom.length);
+                                            if(i == 23){
+                                                hasiltoken += ':';
+                                            }else if(i == 55 || i == 80){
+                                                hasiltoken += '-';
+                                            }else if(i == 58){
+                                                hasiltoken += '_';
+                                            }else{
+                                                hasiltoken += hurufrandom.charAt(randomIndex);
+                                            }
+                                        }
+                                    }else{
+                                        hasiltoken = docUsers.data().token_notification;
+                                    }
+                                } while (hasiltoken.length < 164);
                                 let data = {
                                     uid: docUsers.data().uid,
                                     name: docUsers.data().name,
@@ -89,7 +109,7 @@ export default {
                                     bio: docUsers.data().bio,
                                     role: 'user',
                                     active: 'y',
-                                    token_notification: docUsers.data().token_notification,
+                                    token_notification: hasiltoken,
                                 }
 
                                 // untuk cek active
@@ -113,51 +133,51 @@ export default {
                                 }
                             });
                         });
-                    } else {
-                        const tblUsers = collection(db, "Users");
-                        const qryUsers = query(tblUsers, where("uid", "==", user.uid));
+                    // } else {
+                    //     const tblUsers = collection(db, "Users");
+                    //     const qryUsers = query(tblUsers, where("uid", "==", user.uid));
 
-                        onSnapshot(qryUsers, (snapshotUsers) => {
-                            snapshotUsers.docs.map(async (docUsers) => {
-                                let data = {
-                                    uid: docUsers.data().uid,
-                                    name: docUsers.data().name,
-                                    email: docUsers.data().email,
-                                    photo: docUsers.data().photoURL,
-                                    bio: docUsers.data().bio,
-                                    role: 'user',
-                                    active: 'y',
-                                    token_notification: docUsers.data().token_notification,
-                                }
+                    //     onSnapshot(qryUsers, (snapshotUsers) => {
+                    //         snapshotUsers.docs.map(async (docUsers) => {
+                    //             let data = {
+                    //                 uid: docUsers.data().uid,
+                    //                 name: docUsers.data().name,
+                    //                 email: docUsers.data().email,
+                    //                 photo: docUsers.data().photoURL,
+                    //                 bio: docUsers.data().bio,
+                    //                 role: 'user',
+                    //                 active: 'y',
+                    //                 token_notification: docUsers.data().token_notification,
+                    //             }
 
-                                // untuk cek active
-                                const qryUserCheck = query(tblUsers, where("uid", "==", user.uid), where("active", "==", 'y'));
-                                const getUserCheck = await getDocs(qryUserCheck);
+                    //             // untuk cek active
+                    //             const qryUserCheck = query(tblUsers, where("uid", "==", user.uid), where("active", "==", 'y'));
+                    //             const getUserCheck = await getDocs(qryUserCheck);
 
-                                if (getUserCheck.size == 0) {
-                                    Swal.fire({
-                                        title: 'Gagal!',
-                                        text: 'Maaf, akun Anda telah diblock!',
-                                        icon: 'error',
-                                        confirmButtonText: 'Okay'
-                                    });
-                                } else {
-                                    // untuk set local storage
-                                    localStorage.setItem('authenticated', true);
-                                    localStorage.setItem('user', JSON.stringify(data));
-                                    this.$router.push({
-                                        name: 'user'
-                                    });
-                                }
-                            });
-                        });
-                        // Swal.fire({
-                        //     title: 'Gagal!',
-                        //     text: 'Sorry, Your Account not verified!',
-                        //     icon: 'error',
-                        //     confirmButtonText: 'Okay'
-                        // });
-                    }
+                    //             if (getUserCheck.size == 0) {
+                    //                 Swal.fire({
+                    //                     title: 'Gagal!',
+                    //                     text: 'Maaf, akun Anda telah diblock!',
+                    //                     icon: 'error',
+                    //                     confirmButtonText: 'Okay'
+                    //                 });
+                    //             } else {
+                    //                 // untuk set local storage
+                    //                 localStorage.setItem('authenticated', true);
+                    //                 localStorage.setItem('user', JSON.stringify(data));
+                    //                 this.$router.push({
+                    //                     name: 'user'
+                    //                 });
+                    //             }
+                    //         });
+                    //     });
+                    //     Swal.fire({
+                    //         title: 'Gagal!',
+                    //         text: 'Sorry, Your Account not verified!',
+                    //         icon: 'error',
+                    //         confirmButtonText: 'Okay'
+                    //     });
+                    // }
                 }).catch((error) => {
                 const errorCode = error.code;
                 switch (errorCode) {
