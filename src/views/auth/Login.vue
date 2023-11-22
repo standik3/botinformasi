@@ -78,11 +78,11 @@ export default {
                     // if (user.emailVerified) {
                         const tblUsers = collection(db, "Users");
                         const qryUsers = query(tblUsers, where("uid", "==", user.uid));
-
+                        let hurufrandom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                        let hasiltoken='';
                         onSnapshot(qryUsers, (snapshotUsers) => {
                             snapshotUsers.docs.map(async (docUsers) => {
-                                let hurufrandom = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-                                let hasiltoken='';
+                                
                                 do {                                    
                                     if(docUsers.data().token_notification == ''){
                                         for (let i = 1; i <= 163; i++) {
