@@ -114,12 +114,49 @@ export default {
                             });
                         });
                     } else {
-                        Swal.fire({
-                            title: 'Gagal!',
-                            text: 'Sorry, Your Account not verified!',
-                            icon: 'error',
-                            confirmButtonText: 'Okay'
+                        const tblUsers = collection(db, "Users");
+                        const qryUsers = query(tblUsers, where("uid", "==", user.uid));
+
+                        onSnapshot(qryUsers, (snapshotUsers) => {
+                            snapshotUsers.docs.map(async (docUsers) => {
+                                let data = {
+                                    uid: docUsers.data().uid,
+                                    name: docUsers.data().name,
+                                    email: docUsers.data().email,
+                                    photo: docUsers.data().photoURL,
+                                    bio: docUsers.data().bio,
+                                    role: 'user',
+                                    active: 'y',
+                                    token_notification: docUsers.data().token_notification,
+                                }
+
+                                // untuk cek active
+                                const qryUserCheck = query(tblUsers, where("uid", "==", user.uid), where("active", "==", 'y'));
+                                const getUserCheck = await getDocs(qryUserCheck);
+
+                                if (getUserCheck.size == 0) {
+                                    Swal.fire({
+                                        title: 'Gagal!',
+                                        text: 'Maaf, akun Anda telah diblock!',
+                                        icon: 'error',
+                                        confirmButtonText: 'Okay'
+                                    });
+                                } else {
+                                    // untuk set local storage
+                                    localStorage.setItem('authenticated', true);
+                                    localStorage.setItem('user', JSON.stringify(data));
+                                    this.$router.push({
+                                        name: 'user'
+                                    });
+                                }
+                            });
                         });
+                        // Swal.fire({
+                        //     title: 'Gagal!',
+                        //     text: 'Sorry, Your Account not verified!',
+                        //     icon: 'error',
+                        //     confirmButtonText: 'Okay'
+                        // });
                     }
                 }).catch((error) => {
                 const errorCode = error.code;
