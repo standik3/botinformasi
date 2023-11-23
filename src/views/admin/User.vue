@@ -69,7 +69,7 @@ export default {
     methods: {
         async getData() {
             const tblUsers = collection(db, 'Users');
-            const qryUsers = query(tblUsers, orderBy('uid'));
+            const qryUsers = query(tblUsers, orderBy('uid', 'asc'));
             const getUsers = await getDocs(qryUsers);
 
             if (!getUsers.empty) {
