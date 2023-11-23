@@ -51,7 +51,8 @@ import {
     getDocs,
     onSnapshot,
     where,
-    getCountFromServer,
+    getCountFromServer, 
+    orderBy,
     updateDoc,
     doc,
 } from "firebase/firestore";
@@ -70,7 +71,7 @@ export default {
     methods: {
         async getData() {
             const tblUsers = collection(db, 'Users');
-            const qryUsers = query(tblUsers);
+            const qryUsers = query(tblUsers, orderBy('name'));
             const getUsers = await getDocs(qryUsers);
 
             if (!getUsers.empty) {
