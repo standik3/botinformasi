@@ -22,12 +22,12 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
             </thead>
             <tbody>
                 <tr v-for="row in users" :key="row.id">
-                    <td>{{ row.name }}</td>
-                    <td>{{ row.email }}</td>
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.uid }}</td>
-                    <td>{{ row.report }}</td>
-                    <td>
+                    <td class="justify-text">{{ row.name }}</td>
+                    <td class="justify-text">{{ row.email }}</td>
+                    <td class="justify-text">{{ row.id }}</td>
+                    <td class="justify-text">{{ row.uid }}</td>
+                    <td class="justify-text">{{ row.report }}</td>
+                    <td class="justify-text">
                         <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
                         <font-awesome-icon v-else icon="fa-solid fa-times" />
                     </td>
