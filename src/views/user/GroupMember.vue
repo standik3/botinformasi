@@ -101,7 +101,7 @@
                         name: user.name,
                         email: user.email,
                         photo: user.photo,
-                        status: (resFriends.empty ? true : false)
+                        status: (resFriends.empty ? false : true)
                     });
                 });
 
