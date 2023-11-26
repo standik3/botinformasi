@@ -11,15 +11,19 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
         <table class="table-auto w-full text-center">
             <thead>
                 <tr>
-                    <th>User</th>
                     <th>Id</th>
+                    <th>User</th>
+                    <th>Name</th>
+                    <th>Info</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="row in bots" :key="row.id">
-                    <td>{{ row.user }}</td>
                     <td>{{ row.id }}</td>
+                    <td>{{ row.user }}</td>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.info }}</td>
                     <td>
                         <button class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="detailChat(row.id)">Detail</button>
                     </td>
