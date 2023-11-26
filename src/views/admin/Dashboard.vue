@@ -11,22 +11,39 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
         <p class="text-2xl font-semibold mb-2 lg:mb-0">Selamat Datang, Admin!</p>
     </div>
 
-    <div class="w-full bg-white border rounded-lg p-4">
-        <EasyDataTable buttons-pagination :headers="headers" :items="users" :rows-per-page="10">
-            <template #item-active="{active}">
-                <font-awesome-icon v-if="active === 'y'" icon="fa-solid fa-check" />
-                <font-awesome-icon v-else icon="fa-solid fa-times" />
-            </template>
-
-            <template #item-action="{uid, report, active}">
-                <div v-if="report >= 1">
-                    <button v-if="active === 'y'" class="bg-red-500 btn-sm hover:bg-red-700 text-white font-medium px-3 py-2 rounded-lg"
-                        @click="blockUser(uid)">Block</button>
-                    <button v-else class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg"
-                        @click="blockUser(uid)">Open</button>
-                </div>
-            </template>
-        </EasyDataTable>
+     <div class="w-full bg-white border rounded-lg p-4">
+        <table class="table-auto w-full text-center">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Id</th>
+                    <th>Uid</th>
+                    <th>Report</th>
+                    <th>Active</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="row in users" :key="row.id">
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.email }}</td>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.uid }}</td>
+                    <td>{{ row.report }}</td>
+                    <td>
+                        <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
+                        <font-awesome-icon v-else icon="fa-solid fa-times" />
+                    </td>
+                    <td>
+                        <div v-if="row.report >= 1">
+                            <button v-if="row.active === 'y'" class="bg-red-500 btn-sm hover:bg-red-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Block</button>
+                            <button v-else class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Open</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -52,14 +69,6 @@ export default {
                 'name': 'Dashboard'
             }, ],
             users: [],
-            headers: [
-                {text: "id", value: "id"},
-                {text: "uid", value: "uid"},
-                {text: "name", value: "name"},
-                {text: "email", value: "email"},
-                {text: "active", value: "active"},
-                {text: "action", value: "action"},
-            ],
         }
     },
     methods: {
