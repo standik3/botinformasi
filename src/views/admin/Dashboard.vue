@@ -163,22 +163,13 @@ export default {
                 getUsers.forEach(async (row) => {
                     const docRef = doc(db, 'Users', row.id);
                     const newActiveStatus = row.data().active === 'y' ? 'n' : 'y';
-                    // Update the existing users array in place
-                    const userIndex = this.users.findIndex(user => user.id === row.id);
-                    if (userIndex !== -1) {
-                        this.$set(this.users, userIndex, {
-                            ...this.users[userIndex],
-                            active: newActiveStatus,
-                        });
-                    }
-                    // Update the document in Firestore
                     await updateDoc(docRef, {
-                        active: newActiveStatus
+                    active: newActiveStatus
                     });
                     console.log('Document successfully updated!');
                 });
             } catch (error) {
-                console.error('Error updating document: ', error);
+            console.error('Error updating document: ', error);
             }
         }
     },
