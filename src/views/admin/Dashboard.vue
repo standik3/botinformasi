@@ -12,24 +12,24 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
     </div>
 
      <div class="w-full bg-white border rounded-lg p-4">
-        <table class="table-auto w-full text-center border-3">
+        <table class="table-auto w-full text-center border-2">
             <thead>
                 <tr>
-                    <th class="border p-6">Nama</th>
-                    <th class="border p-6">Email</th>
-                    <th class="border p-6">Uid</th>
-                    <th class="border p-6">Report</th>
-                    <th class="border p-6">Active</th>
-                    <th class="border p-6">Aksi</th>
+                    <th class="border-2 p-6">Nama</th>
+                    <th class="border-2 p-6">Email</th>
+                    <th class="border-2 p-6">Uid</th>
+                    <th class="border-2 p-6">Report</th>
+                    <th class="border-2 p-6">Active</th>
+                    <th class="border-2 p-6">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(row, index) in displayedItems" :key="index">
-                    <td class="border p-3">{{ row.name }}</td>
-                    <td class="border p-3">{{ row.email }}</td>
-                    <td class="border p-3">{{ row.uid }}</td>
-                    <td class="border p-3">{{ row.report }}</td>
-                    <td class="border p-3">
+                    <td class="border-2 p-3">{{ row.name }}</td>
+                    <td class="border-2 p-3">{{ row.email }}</td>
+                    <td class="border-2 p-3">{{ row.uid }}</td>
+                    <td class="border-2 p-3">{{ row.report }}</td>
+                    <td class="border-2 p-3">
                         <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
                         <font-awesome-icon v-else icon="fa-solid fa-times" />
                     </td>
