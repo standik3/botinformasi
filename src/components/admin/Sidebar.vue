@@ -20,11 +20,11 @@
       href: '/admin/dashboard',
       icon: 'fa-solid fa-house',
     },
-    {
-      name: 'User',
-      href: '/admin/user',
-      icon: 'fa-solid fa-users'
-    },
+    // {
+    //   name: 'User',
+    //   href: '/admin/user',
+    //   icon: 'fa-solid fa-users'
+    // },
     {
       name: 'Group',
       href: '/admin/group',

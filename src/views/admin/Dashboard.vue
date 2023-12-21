@@ -17,7 +17,6 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                 <tr>
                     <th>Nama</th>
                     <th>Email</th>
-                    <th>Id</th>
                     <th>Uid</th>
                     <th>Report</th>
                     <th>Active</th>
@@ -28,7 +27,6 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                 <tr v-for="(row, index) in displayedItems" :key="index">
                     <td>{{ row.name }}</td>
                     <td>{{ row.email }}</td>
-                    <td>{{ row.id }}</td>
                     <td>{{ row.uid }}</td>
                     <td>{{ row.report }}</td>
                     <td>
