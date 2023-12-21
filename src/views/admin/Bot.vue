@@ -63,7 +63,7 @@ export default {
     },
     computed: {
         totalPages() {
-            return Math.ceil(this.users.length / this.itemsPerPage);
+            return Math.ceil(this.bots.length / this.itemsPerPage);
         },
         displayedItems() {
             const startIndex = (this.currentPage - 1) * this.itemsPerPage;

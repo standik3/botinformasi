@@ -63,12 +63,12 @@ export default {
     },
     computed: {
         totalPages() {
-            return Math.ceil(this.users.length / this.itemsPerPage);
+            return Math.ceil(this.groups.length / this.itemsPerPage);
         },
         displayedItems() {
             const startIndex = (this.currentPage - 1) * this.itemsPerPage;
             const endIndex = startIndex + this.itemsPerPage;
-            return this.users.slice(startIndex, endIndex);
+            return this.groups.slice(startIndex, endIndex);
         },
     },
     methods: {
