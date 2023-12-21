@@ -102,29 +102,54 @@ export default {
             const tblUsers = collection(db, 'Users');
             const qryUsers = query(tblUsers);
             const getUsers = await getDocs(qryUsers);
-
             if (!getUsers.empty) {
-                onSnapshot(qryUsers, (snapshot) => {
-                    this.users = [];
-                    snapshot.docs.forEach(async doc => {
-                        const tblReport = collection(db, "Reports");
-                        const qryReport = query(tblReport, where("uid", "==", doc.data().uid));
-                        const resReport = await getCountFromServer(qryReport)
-
-                        this.users.push({
-                            id: doc.id,
-                            uid: doc.data().uid,
-                            name: doc.data().name,
-                            email: doc.data().email,
-                            active: doc.data().active,
-                            report: resReport.data().count
-                        });
-                    });
+                const dataPromises = getUsers.docs.map(async (doc) => {
+                const tblReport = collection(db, "Reports");
+                const qryReport = query(tblReport, where("uid", "==", doc.data().uid));
+                const resReport = await getCountFromServer(qryReport);
+                    return {
+                        id: doc.id,
+                        uid: doc.data().uid,
+                        name: doc.data().name,
+                        email: doc.data().email,
+                        active: doc.data().active,
+                        report: resReport.data().count,
+                    };
                 });
-                this.sortDataByName();
+
+                Promise.all(dataPromises)
+                .then((userData) => {
+                    this.users = userData;
+                    this.sortDataByName();
+                })
+                .catch((error) => {
+                    console.error("Error fetching user data: ", error);
+                });
             } else {
-                console.log('No matching documents.');
+                console.log("No matching documents.");
             }
+            // if (!getUsers.empty) {
+            //     onSnapshot(qryUsers, (snapshot) => {
+            //         this.users = [];
+            //         snapshot.docs.forEach(async doc => {
+            //             const tblReport = collection(db, "Reports");
+            //             const qryReport = query(tblReport, where("uid", "==", doc.data().uid));
+            //             const resReport = await getCountFromServer(qryReport)
+
+            //             this.users.push({
+            //                 id: doc.id,
+            //                 uid: doc.data().uid,
+            //                 name: doc.data().name,
+            //                 email: doc.data().email,
+            //                 active: doc.data().active,
+            //                 report: resReport.data().count
+            //             });
+            //         });
+            //     });
+            //     this.sortDataByName();
+            // } else {
+            //     console.log('No matching documents.');
+            // }
         },
         sortDataByName() {
             this.users.sort((a, b) => {
