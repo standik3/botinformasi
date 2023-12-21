@@ -25,7 +25,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in users" :key="row.id">
+                <tr v-for="(row, index) in displayedItems" :key="index">
                     <td>{{ row.name }}</td>
                     <td>{{ row.email }}</td>
                     <td>{{ row.id }}</td>
@@ -43,7 +43,32 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                     </td>
                 </tr>
             </tbody>
+            <!-- <tbody>
+                <tr v-for="row in users" :key="row.id">
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.email }}</td>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.uid }}</td>
+                    <td>{{ row.report }}</td>
+                    <td>
+                        <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
+                        <font-awesome-icon v-else icon="fa-solid fa-times" />
+                    </td>
+                    <td>
+                        <div v-if="row.report >= 1">
+                            <button v-if="row.active === 'y'" class="bg-red-500 btn-sm hover:bg-red-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Block</button>
+                            <button v-else class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Open</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody> -->
         </table>
+        <!-- Pagination controls -->
+        <div>
+            <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+        </div>
     </div>
 </template>
 
@@ -69,9 +94,31 @@ export default {
                 'name': 'Dashboard'
             }, ],
             users: [],
+            itemsPerPage: 10,
+            currentPage: 1,
         }
     },
+    computed: {
+        totalPages() {
+            return Math.ceil(this.users.length / this.itemsPerPage);
+        },
+        displayedItems() {
+            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            return this.users.slice(startIndex, endIndex);
+        },
+    },
     methods: {
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+            }
+        },
         async getData() {
             const tblUsers = collection(db, 'Users');
             const qryUsers = query(tblUsers);
