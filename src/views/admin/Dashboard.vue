@@ -116,7 +116,6 @@ export default {
                         report: resReport.data().count,
                     };
                 });
-
                 Promise.all(dataPromises)
                 .then((userData) => {
                     this.users = userData;
@@ -159,21 +158,23 @@ export default {
         async blockUser(uid) {
             const tblUsers = collection(db, 'Users');
             const qryUsers = query(tblUsers, where('uid', '==', uid));
+            
+            try {
             const getUsers = await getDocs(qryUsers);
 
-            getUsers.forEach(async row => {
-                const docRef = doc(db, "Users/" + row.id);
+            getUsers.forEach(async (row) => {
+                const docRef = doc(db, 'Users', row.id);
+                const newActiveStatus = row.data().active === 'y' ? 'n' : 'y';
 
-                let active = (row.data().active === 'y' ? 'n' : 'y');
-
-                updateDoc(docRef, {
-                    active: active
-                }).then(() => {
-                    console.log("Document successfully updated!");
-                }).catch((error) => {
-                    console.error("Error updating document: ", error);
+                await updateDoc(docRef, {
+                active: newActiveStatus
                 });
+
+                console.log('Document successfully updated!');
             });
+            } catch (error) {
+            console.error('Error updating document: ', error);
+            }
         }
     },
     mounted() {
