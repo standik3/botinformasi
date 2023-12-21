@@ -33,7 +33,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                         <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
                         <font-awesome-icon v-else icon="fa-solid fa-times" />
                     </td>
-                    <td>
+                    <td class="border-2 p-3">
                         <div v-if="row.report >= 1">
                             <button v-if="row.active === 'y'" class="bg-red-500 btn-sm hover:bg-red-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Block</button>
                             <button v-else class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Open</button>
