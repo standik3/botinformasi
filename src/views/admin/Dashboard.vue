@@ -121,9 +121,15 @@ export default {
                         });
                     });
                 });
+                this.sortDataByName();
             } else {
                 console.log('No matching documents.');
             }
+        },
+        sortDataByName() {
+            this.users.sort((a, b) => {
+                return a.name.localeCompare(b.name);
+            });
         },
         async blockUser(uid) {
             const tblUsers = collection(db, 'Users');
