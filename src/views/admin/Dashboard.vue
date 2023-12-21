@@ -11,25 +11,25 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
         <p class="text-2xl font-semibold mb-2 lg:mb-0">Selamat Datang, Admin!</p>
     </div>
 
-     <div class="w-full bg-black border rounded-lg p-4">
-        <table class="table-auto w-full text-center">
+     <div class="w-full bg-white border rounded-lg p-4">
+        <table class="table-auto w-full text-center border">
             <thead>
                 <tr>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Uid</th>
-                    <th>Report</th>
-                    <th>Active</th>
-                    <th>Aksi</th>
+                    <th class="border p-2">Nama</th>
+                    <th class="border p-2">Email</th>
+                    <th class="border p-2">Uid</th>
+                    <th class="border p-2">Report</th>
+                    <th class="border p-2">Active</th>
+                    <th class="border p-2">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(row, index) in displayedItems" :key="index">
-                    <td>{{ row.name }}</td>
-                    <td>{{ row.email }}</td>
-                    <td>{{ row.uid }}</td>
-                    <td>{{ row.report }}</td>
-                    <td>
+                    <td class="border p-2">{{ row.name }}</td>
+                    <td class="border p-2">{{ row.email }}</td>
+                    <td class="border p-2">{{ row.uid }}</td>
+                    <td class="border p-2">{{ row.report }}</td>
+                    <td class="border p-2">
                         <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
                         <font-awesome-icon v-else icon="fa-solid fa-times" />
                     </td>
