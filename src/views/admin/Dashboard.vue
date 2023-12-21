@@ -15,21 +15,21 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
         <table class="table-auto w-full text-center border">
             <thead>
                 <tr>
-                    <th class="border p-2">Nama</th>
-                    <th class="border p-2">Email</th>
-                    <th class="border p-2">Uid</th>
-                    <th class="border p-2">Report</th>
-                    <th class="border p-2">Active</th>
-                    <th class="border p-2">Aksi</th>
+                    <th class="border p-6">Nama</th>
+                    <th class="border p-6">Email</th>
+                    <th class="border p-6">Uid</th>
+                    <th class="border p-6">Report</th>
+                    <th class="border p-6">Active</th>
+                    <th class="border p-6">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(row, index) in displayedItems" :key="index">
-                    <td class="border p-2">{{ row.name }}</td>
-                    <td class="border p-2">{{ row.email }}</td>
-                    <td class="border p-2">{{ row.uid }}</td>
-                    <td class="border p-2">{{ row.report }}</td>
-                    <td class="border p-2">
+                    <td class="border p-3">{{ row.name }}</td>
+                    <td class="border p-3">{{ row.email }}</td>
+                    <td class="border p-3">{{ row.uid }}</td>
+                    <td class="border p-3">{{ row.report }}</td>
+                    <td class="border p-3">
                         <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
                         <font-awesome-icon v-else icon="fa-solid fa-times" />
                     </td>
@@ -41,25 +41,6 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
                     </td>
                 </tr>
             </tbody>
-            <!-- <tbody>
-                <tr v-for="row in users" :key="row.id">
-                    <td>{{ row.name }}</td>
-                    <td>{{ row.email }}</td>
-                    <td>{{ row.id }}</td>
-                    <td>{{ row.uid }}</td>
-                    <td>{{ row.report }}</td>
-                    <td>
-                        <font-awesome-icon v-if="row.active === 'y'" icon="fa-solid fa-check" />
-                        <font-awesome-icon v-else icon="fa-solid fa-times" />
-                    </td>
-                    <td>
-                        <div v-if="row.report >= 1">
-                            <button v-if="row.active === 'y'" class="bg-red-500 btn-sm hover:bg-red-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Block</button>
-                            <button v-else class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="blockUser(row.uid)">Open</button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody> -->
         </table>
         <!-- Pagination controls -->
         <div>
