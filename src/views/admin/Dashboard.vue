@@ -12,7 +12,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
     </div>
 
      <div class="w-full bg-white border rounded-lg p-4">
-        <table class="table-auto w-full text-center">
+        <table class="table-auto w-full">
             <thead>
                 <tr>
                     <th>Nama</th>
@@ -66,7 +66,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
         <!-- Pagination controls -->
         <div>
             <button class="bg-red-500 btn-sm hover:bg-red-700 text-white font-medium px-3 py-2 rounded-lg" @click="prevPage" :disabled="currentPage === 1">Previous Page</button>
-            <span>{{ currentPage }} of {{ totalPages }}</span>
+            <span>     {{ currentPage }} of {{ totalPages }}     </span>
             <button class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="nextPage" :disabled="currentPage === totalPages"> Next</button>
         </div>
     </div>
