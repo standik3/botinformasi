@@ -168,6 +168,7 @@ export default {
                     });
                     console.log('Document successfully updated!');
                 });
+                this.getData();
             } catch (error) {
             console.error('Error updating document: ', error);
             }
