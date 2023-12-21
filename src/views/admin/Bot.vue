@@ -8,24 +8,30 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
     <!-- end:: breadcrumb -->
 
     <div class="w-full bg-white border rounded-lg p-4">
-        <table class="table-auto w-full text-center">
+        <table class="table-auto w-full text-center border" >
             <thead>
                 <tr>
-                    <th>User</th>
-                    <th>Id</th>
-                    <th>Aksi</th>
+                    <th class="border p-6">User</th>
+                    <th class="border p-6">Id</th>
+                    <th class="border p-6">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="row in bots" :key="row.id">
-                    <td>{{ row.user }}</td>
-                    <td>{{ row.id }}</td>
+                <tr v-for="(row, index) in displayedItems" :key="index">
+                    <td class="border p-3">{{ row.user }}</td>
+                    <td class="border p-3">{{ row.id }}</td>
                     <td>
                         <button class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="detailChat(row.id)">Detail</button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <!-- Pagination controls -->
+        <div>
+            <button class="bg-red-500 btn-sm hover:bg-red-700 text-white font-medium px-3 py-2 rounded-lg" @click="prevPage" :disabled="currentPage === 1">Previous Page</button>
+            <span>     {{ currentPage }} of {{ totalPages }}     </span>
+            <button class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="nextPage" :disabled="currentPage === totalPages"> Next</button>
+        </div>
     </div>
 </template>
 
@@ -49,9 +55,31 @@ export default {
             ],
             bots: [],
             users: [],
+            itemsPerPage: 10,
+            currentPage: 1,
         }
     },
+    computed: {
+        totalPages() {
+            return Math.ceil(this.users.length / this.itemsPerPage);
+        },
+        displayedItems() {
+            const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+            const endIndex = startIndex + this.itemsPerPage;
+            return this.bots.slice(startIndex, endIndex);
+        },
+    },
     methods: {
+        prevPage() {
+            if (this.currentPage > 1) {
+                this.currentPage--;
+            }
+        },
+        nextPage() {
+            if (this.currentPage < this.totalPages) {
+                this.currentPage++;
+            }
+        },
         detailChat(id) {
             this.$router.push({
                 name: 'admin-bot-detail',
