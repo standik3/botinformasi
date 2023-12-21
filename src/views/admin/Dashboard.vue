@@ -65,9 +65,9 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
         </table>
         <!-- Pagination controls -->
         <div>
-            <button @click="prevPage" :disabled="currentPage === 1">Previous Page</button>
+            <button class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="prevPage" :disabled="currentPage === 1">Previous Page</button>
             <span>{{ currentPage }} of {{ totalPages }}</span>
-            <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+            <button @click="nextPage" :disabled="currentPage === totalPages"> Next</button>
         </div>
     </div>
 </template>
