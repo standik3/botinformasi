@@ -8,19 +8,21 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
     <!-- end:: breadcrumb -->
 
     <div class="w-full bg-white border rounded-lg p-4">
-        <table class="table-auto w-full text-center border" >
+        <table class="table-auto w-full text-center border-2" >
             <thead>
                 <tr>
-                    <th class="border p-6">User</th>
-                    <th class="border p-6">Id</th>
-                    <th class="border p-6">Aksi</th>
+                    <th class="border-2 p-6">User</th>
+                    <th class="border-2 p-6">Email</th>
+                    <th class="border-2 p-6">Id</th>
+                    <th class="border-2 p-6">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(row, index) in displayedItems" :key="index">
-                    <td class="border p-3">{{ row.user }}</td>
-                    <td class="border p-3">{{ row.id }}</td>
-                    <td>
+                    <td class="border-2 p-3">{{ row.user }}</td>
+                    <td class="border-2 p-3">{{ row.email }}</td>
+                    <td class="border-2 p-3">{{ row.id }}</td>
+                    <td border-2>
                         <button class="bg-green-500 btn-sm hover:bg-green-700 text-white font-medium px-3 py-2 rounded-lg" @click="detailChat(row.id)">Detail</button>
                     </td>
                 </tr>
