@@ -113,6 +113,7 @@ export default {
                             id: doc.id,
                             user: user.name,
                             name: doc.data().name,
+                            email: doc.data().email,
                             info: doc.data().info,
                         });
                     });
