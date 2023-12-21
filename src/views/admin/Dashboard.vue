@@ -12,7 +12,7 @@ import Breadcrumb from "../../components/admin/Breadcrumb.vue";
     </div>
 
      <div class="w-full bg-white border rounded-lg p-4">
-        <table class="table-auto w-full text-center border">
+        <table class="table-auto w-full text-center border-3">
             <thead>
                 <tr>
                     <th class="border p-6">Nama</th>
